@@ -1,0 +1,129 @@
+/* HomieRanking.css */
+
+.container {
+    background-color: #f3f4f6;
+    min-height: 100vh;
+  }
+  
+  .header {
+    background: linear-gradient(to right, #ff7f0e, #ffcc00);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .nav a, .nav button {
+    margin: 0 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .create, .login, .signin {
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+  
+  .create {
+    background-color: black;
+    color: white;
+  }
+  
+  .login, .signin {
+    background-color: white;
+    color: black;
+  }
+  
+  .main {
+    display: flex;
+    padding: 24px;
+  }
+  
+  .sidebar {
+    width: 25%;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .sidebar h3 {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .sidebar ul li {
+    list-style: none;
+    margin: 4px 0;
+  }
+  
+  .content {
+    flex: 1;
+    margin-left: 24px;
+  }
+  
+  .card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: gray;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .follow, .followed {
+    margin-left: auto;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .follow {
+    background: red;
+    color: white;
+  }
+  
+  .followed {
+    background: green;
+    color: white;
+  }
+  
+  .image {
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  
+  .placeholder {
+    height: 160px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  
+  .play {
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  
