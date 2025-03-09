@@ -24,10 +24,52 @@ const PopupModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+const Login = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+    return (
+        <div className="popup-overlay">
+            <div className="popupLogin"> 
+                <button className="close-btn" onClick={onClose}>
+                <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30"/>
+                </button>
+                <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1"  
+                width="200" />
+                <h2 className="inter-text">Log in</h2>
+                <h3 className="inter-small-text">Homie ranking</h3>
+                <input type="text" placeholder="Username" className="input-box" />
+                <input type="password" placeholder="Password" className="input-box" />
+                <button className="login-btn">Login</button>
+            </div>
+        </div>
+    );
+};
+
+const Signin = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+    return (
+        <div className="popup-overlay">
+        <div className="popupSignin">
+            <button className="close-btn" onClick={onClose}>
+                <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30"/>
+            </button>
+            <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1"  
+            width="200" />
+            <h2 className="inter-text">Create Your Account</h2>
+            <h3 className="inter-small-text">Set your password for Homie ranking</h3>
+            <input type="text" placeholder="Username" className="input-box" />
+            <input type="password" placeholder="Password" className="input-box" />
+            <input type="password" placeholder="Confirm Password" className="input-box" />
+            <button className="signup-btn">Sign In</button>
+        </div>
+    </div>
+    );
+};
 
 const HomePage = () => {
     
     const [isPopupOpen, setPopupOpen] = useState(false);
+    const [isLogin, setLogin] = useState(false);
+    const [isSignin, setSignin] = useState(false);
     
     const FollowButton = () => {
         const [isFollowed, setIsFollowed] = useState(false);
@@ -55,8 +97,12 @@ const HomePage = () => {
                 <nav className="nav">
                     <span>TEMPLATE</span>
                     <button className="create">CREATE</button>
-                    <button className="login">LOGIN</button>
-                    <button className="signin">SIGN IN</button>
+                    <button className="login" onClick={() => setLogin(true)}>LOGIN</button>
+                    <Login isOpen={isLogin} onClose={() => setLogin(false)} />
+
+                    <button className="signin"onClick={() => setSignin(true)}>SIGN IN</button>
+                    <Signin isOpen={isSignin} onClose={() => setSignin(false)} />
+
                 </nav>
             </header>
             <main className="main">
@@ -128,5 +174,6 @@ const HomePage = () => {
         </div>
     );
 };
+
 
 export default HomePage;
