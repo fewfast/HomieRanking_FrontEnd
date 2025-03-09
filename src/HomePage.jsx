@@ -8,12 +8,18 @@ const PopupModal = ({ isOpen, onClose }) => {
     return (
         <div className="popup-overlay">
             <div className="popup-content">
-                <button className="close-btn" onClick={onClose}>✖</button>
-                <img src="https://lh3.google.com/u/1/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv=w1912-h920-iv1" alt="Popup" />
-                <h2>Choose Picture</h2>
-                <button className="option-btn">32 pic.</button>
-                <button className="option-btn">64 pic.</button>
-                <button className="option-btn">128 pic.</button>
+                <div className="pop">
+                <button className="close-btn" onClick={onClose}>
+                <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30"/>
+                </button>
+                <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1"  
+                width="60" />
+                </div>
+                <h2 className="titan-text " style={{ fontSize: "3rem" }}>Choose </h2>
+                <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
+                <button className="option-btn ">32 pic.</button>
+                <button className="option-btn ">64 pic.</button>
+                <button className="option-btn ">128 pic.</button>
             </div>
         </div>
     );
@@ -42,9 +48,12 @@ const HomePage = () => {
     return (
         <div className="container">
             <header className="header">
-                <div className="logo">HOMIE RANKING</div>
+                <div className="logo">
+                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1"  
+                width="125px" />
+                </div>
                 <nav className="nav">
-                    <a href="#">TEMPLATE</a>
+                    <span>TEMPLATE</span>
                     <button className="create">CREATE</button>
                     <button className="login">LOGIN</button>
                     <button className="signin">SIGN IN</button>
@@ -52,22 +61,29 @@ const HomePage = () => {
             </header>
             <main className="main">
                 <aside className="sidebar">
-                    <div className="sidebar-logo">HOMIE RANKING</div>
+                    <div className="a">
+                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1"
+                        width = "150"
+                    />
+                    </div>
                     <div className="sort-by">
-                        <h3>Sort by</h3>
-                        <ul>
-                            <a href="#">⭐ Trending</a><li></li>
-                            <a href="#">⏳ Latest</a><li></li>
-                            <a href="#">🎮 Games</a><li></li>
+                        <hr></hr>
+                        <h3 className="a">Sort by</h3>
+                        <ul className="click">
+
+                            <li>⭐ <a href="#">TRENDING</a></li>
+  <li>⏳ <a href="#">LASTEST</a></li>
+  <li>🎮 <a href="#">GAMES</a></li>
                         </ul>
                     </div>
                     <div className="category">
-                        <h3>Category</h3>
-                        <ul>
-                            <a href="#">🎧 Songs</a><li></li>
-                            <a href="#">🍔 Foods</a><li></li>
-                            <a href="#">⚽ Sports</a><li></li>
-                        </ul>
+                    <hr></hr>
+                        <h3 className="a" >Category</h3>
+                        <ul className="click">
+  <li>🎧 <a href="#">SONGS</a></li>
+  <li>🍔 <a href="#">FOODS</a></li>
+  <li>⚽ <a href="#">SPORTS</a></li>
+</ul>
                     </div>
                 </aside>
                 <section className="content">

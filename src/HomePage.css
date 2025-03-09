@@ -1,13 +1,16 @@
 /* HomieRanking.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 .container {
     background-color: #f3f4f6;
     min-height: 100vh;
   }
   
   .header {
+    width: 100%;      
+    position: fixed;
     background: linear-gradient(to right, #ff7f0e, #ffcc00);
-    padding: 16px;
+    /* padding: 16px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,6 +20,7 @@
     color: white;
     font-size: 24px;
     font-weight: bold;
+    margin-left: 200px;
   }
   
   .nav a, .nav button {
@@ -27,7 +31,7 @@
   
   .create, .login, .signin {
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 50px;
   }
   
   .create {
@@ -36,8 +40,8 @@
   }
   
   .login, .signin {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
   }
   
   .main {
@@ -46,7 +50,10 @@
   }
   
   .sidebar {
+    position: fixed;
     width: 25%;
+    height: 80%;
+    margin-top: 45px;
     background: white;
     padding: 16px;
     border-radius: 8px;
@@ -62,12 +69,47 @@
     margin: 4px 0;
   }
   
+  .sort-by{
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+  }
+
+  .category{
+    font-family: "Inter", sans-serif;
+    font-weight:  bold;
+  }
+
   .content {
     flex: 1;
     margin-left: 24px;
+    margin: 40px;
   }
   
+  .a {
+    text-align: center;
+  }
+  .click {
+    display: flex;
+    flex-direction: column;  /* จัดให้อยู่ในแนวตั้ง */
+    align-items: center;     /* จัดกึ่งกลางแนวนอน */
+    list-style: none;        /* เอาจุดหน้า <li> ออก */
+    padding: 0;
+  }
+  
+  .click a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    margin: 10px 0; /* ระยะห่างระหว่างแต่ละอัน */
+  }
+
+  .click a:active {
+    color: red; /* เปลี่ยนเป็นสีแดงเมื่อกด */
+  }
+
   .card {
+    margin-left: 35%;
+    margin-right: 5%;
     background: white;
     padding: 16px;
     border-radius: 8px;
@@ -126,6 +168,7 @@
     border-radius: 4px;
     margin-top: 8px;
   }
+
   .popup-overlay {
     position: fixed;
     top: 0;
@@ -148,13 +191,18 @@
 }
 
 .close-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  background-color: transparent; /* ลบพื้นหลัง */
+}
+
+.logo_pop_up {
+  position: absolute; /* ตำแหน่งสัมพัทธ์กับองค์ประกอบแม่ */
+  display: block;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 .option-btn {
@@ -163,12 +211,27 @@
     padding: 10px;
     margin: 10px 0;
     font-size: 18px;
-    border-radius: 5px;
+    border-radius: 50px;
     border: none;
+    font-weight: 400;
+    font-style: normal;
     cursor: pointer;
     background: white;
+    font-family: "Titan One", sans-serif;
 }
 
 .option-btn:hover {
     background: #ddd;
 }
+.pop {
+  display: flex; 
+  flex-direction: row; 
+  gap: 200px; 
+  align-items: center; 
+}
+
+.titan-text  {
+  font-family: "Titan One", sans-serif;
+  margin-bottom: 0;  /* กำจัดระยะห่างด้านล่าง */
+  margin-top: 0;     /* กำจัดระยะห่างด้านบน */
+} 
