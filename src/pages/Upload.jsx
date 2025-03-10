@@ -52,7 +52,8 @@ const Upload = () => {
   };
 
   return (
-    <div className="upload-container">
+
+    <div className="container">
       {/* Header */}
       <header className="upload-header">
         <div className="a">
@@ -169,6 +170,7 @@ const Upload = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
