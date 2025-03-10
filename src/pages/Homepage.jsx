@@ -1,6 +1,9 @@
 import React from "react";
 import "./Homepage.css";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
+  
 
 const PopupModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -24,8 +27,10 @@ const PopupModal = ({ isOpen, onClose }) => {
         </div>
     );
 };
+
 const Login = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+
     return (
         <div className="popup-overlay">
             <div className="popupLogin"> 
@@ -46,6 +51,7 @@ const Login = ({ isOpen, onClose }) => {
 
 const Signin = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+    
     return (
         <div className="popup-overlay">
         <div className="popupSignin">
@@ -67,17 +73,19 @@ const Signin = ({ isOpen, onClose }) => {
 
 const HomePage = () => {
     
+    const goToAbout = () => {
+        navigate("/๊Upload");
+      };
+    
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLogin, setLogin] = useState(false);
     const [isSignin, setSignin] = useState(false);
-    
     const FollowButton = () => {
         const [isFollowed, setIsFollowed] = useState(false);
     
         const toggleFollow = () => {
             setIsFollowed(!isFollowed);
         };
-    
         return (
             <button 
                 className={isFollowed ? "followed" : "follow"} 
@@ -95,11 +103,10 @@ const HomePage = () => {
                 width="125px" />
                 </div>
                 <nav className="nav">
-                    <span>TEMPLATE</span>
+                    <span style={{ fontWeight: "bold", textDecoration: "underline" }}>TEMPLATE</span>
                     <button className="create">CREATE</button>
                     <button className="login" onClick={() => setLogin(true)}>LOGIN</button>
                     <Login isOpen={isLogin} onClose={() => setLogin(false)} />
-
                     <button className="signin"onClick={() => setSignin(true)}>SIGN IN</button>
                     <Signin isOpen={isSignin} onClose={() => setSignin(false)} />
 
@@ -112,31 +119,26 @@ const HomePage = () => {
                         width = "150"
                     />
                     </div>
-                    <div className="sort-by">
+                    <div className="category">
                         <hr></hr>
-                        <h3 className="a">Sort by</h3>
-                        <ul className="click">
-
+                        <h3 className="b">CATEGORY</h3>
+                        <ul className="click" style={{ lineHeight: "3" }}>
+                        
                             <li>⭐ <a href="#">TRENDING</a></li>
-  <li>⏳ <a href="#">LASTEST</a></li>
-  <li>🎮 <a href="#">GAMES</a></li>
+                            <li>⏳ <a href="#">LASTEST</a></li>
+                            <li>🎮 <a href="#">GAMES</a></li>
+                            <li>🎧 <a href="#">SONGS</a></li>
+                            <li>🍔 <a href="#">FOODS</a></li>
+                            <li>⚽ <a href="#">SPORTS</a></li>
                         </ul>
                     </div>
-                    <div className="category">
-                    <hr></hr>
-                        <h3 className="a" >Category</h3>
-                        <ul className="click">
-  <li>🎧 <a href="#">SONGS</a></li>
-  <li>🍔 <a href="#">FOODS</a></li>
-  <li>⚽ <a href="#">SPORTS</a></li>
-</ul>
-                    </div>
+                    
                 </aside>
                 <section className="content">
                     <div className="card">
                         <div className="user-info">
                             <div className="avatar"></div>
-                            <span>Name #5555</span>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
                             <FollowButton />
                         </div>
                         <h4>The Best GPU of All Time [Games]</h4>
@@ -148,7 +150,7 @@ const HomePage = () => {
                     <div className="card">
                         <div className="user-info">
                             <div className="avatar"></div>
-                            <span>Name #5555</span>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
                             <FollowButton />
                         </div>
                         <h4>Name of Title [Name of Type]</h4>
@@ -160,7 +162,7 @@ const HomePage = () => {
                     <div className="card">
                         <div className="user-info">
                             <div className="avatar"></div>
-                            <span>Name #5555</span>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
                             <FollowButton />
                         </div>
                         <h4>The Best GPU of All Time [Games]</h4>
