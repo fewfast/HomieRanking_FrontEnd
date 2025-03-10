@@ -1,11 +1,17 @@
 import React from 'react';
-import Homepage from './Homepage'; // Import the Homepage component
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './Homepage';
+import Upload from './Upload';
 
 function App() {
   return (
-    <div>
-      <Homepage /> {/* Render the Homepage component */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/upload" element={<Upload />} />
+      </Routes>
+    </Router>
   );
 }
 

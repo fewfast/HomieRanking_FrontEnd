@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import "./Upload.css";
 
+
 const Upload = () => {
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
@@ -32,13 +33,11 @@ const Upload = () => {
           {/* ใช้รูปแทน HOMIE RANKING */}
           <img src="https://lh3.google.com/u/0/d/1U5Tw6GqBu7qLwJk0gZncSssvMZp1tQg6=w1919-h869-iv1" alt="HOMIE RANKING"  />
         </div>
-
         <div className="auth-buttons">
           <button>LOGIN</button>
           <button>SIGN IN</button>
         </div>
       </header>
-
       <div className="upload-box">
         {/* Quiz Title */}
         <div className="input-container">
@@ -50,15 +49,13 @@ const Upload = () => {
             onChange={(e) => setQuizTitle(e.target.value)}
           />
         </div>
-
         {/* Quiz Description */}
         <div className="input-des">
           <label>Quiz Description</label>
           <input
             placeholder="Enter quiz description"
             value={quizDescription}
-            onChange={(e) => setQuizDescription(e.target.value)
-            }
+            onChange={(e) => setQuizDescription(e.target.value)}
           />
         </div>
       
