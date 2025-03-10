@@ -1,5 +1,5 @@
 import React from "react";
-import "./HomePage.css";
+import "./Homepage.css";
 import { useState } from "react";
 
 const PopupModal = ({ isOpen, onClose }) => {
