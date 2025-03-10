@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Upload from './Upload.jsx'; // เปลี่ยนจาก App.jsx เป็น Home.jsx
-import './Upload.css';
+import HomePage from './HomePage.jsx'; // เปลี่ยนจาก App.jsx เป็น Home.jsx
+import './HomePage.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Upload />
+    <HomePage />
   </React.StrictMode>
 );
+>>>>>>> main
