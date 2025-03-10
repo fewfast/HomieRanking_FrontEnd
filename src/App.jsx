@@ -1,11 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import HomePage from './HomePage.jsx'; // เปลี่ยนจาก App.jsx เป็น Home.jsx
-import './HomePage.css';
+// src/app.jsx
+import React from "react";
+import Homepage from "./homepage";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <HomePage />
-  </React.StrictMode>
-);
->>>>>>> main
+const App = () => {
+  return (
+    <div>
+      <Homepage />
+    </div>
+  );
+};
+
+export default App;
