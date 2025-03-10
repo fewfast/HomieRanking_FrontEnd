@@ -90,8 +90,8 @@ const HomePage = () => {
     return (
         <div className="container">
             <header className="header">
-                <div className="logo">
-                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="125px" />
+                <div className="a">
+                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="100px" style={ { marginLeft: "200px" }}/>
                 </div>
                 <nav className="nav">
                     <span style={{ fontWeight: "bold", textDecoration: "underline" }}>TEMPLATE</span>
