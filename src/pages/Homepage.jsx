@@ -1,7 +1,8 @@
 import React from "react";
 import "./Homepage.css";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';  // นำเข้า useNavigate
+import { useNavigate } from 'react-router-dom';
+
 
 const PopupModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -68,11 +69,9 @@ const HomePage = () => {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLogin, setLogin] = useState(false);
     const [isSignin, setSignin] = useState(false);
-
     const goToUploadPage = () => {
         navigate("/upload");  // Corrected: `navigate` is now defined inside HomePage
     };
-
     const FollowButton = () => {
         const [isFollowed, setIsFollowed] = useState(false);
         const toggleFollow = () => {
@@ -95,7 +94,7 @@ const HomePage = () => {
                     <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="125px" />
                 </div>
                 <nav className="nav">
-                    <span>TEMPLATE</span>
+                    <span style={{ fontWeight: "bold", textDecoration: "underline" }}>TEMPLATE</span>
                     <button className="create" onClick={goToUploadPage}>CREATE</button>
                     <button className="login" onClick={() => setLogin(true)}>LOGIN</button>
                     <Login isOpen={isLogin} onClose={() => setLogin(false)} />
@@ -108,24 +107,21 @@ const HomePage = () => {
                     <div className="a">
                         <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="150" />
                     </div>
-                    <div className="sort-by">
-                        <hr />
-                        <h3 className="a">Sort by</h3>
-                        <ul className="click">
+
+                    <div className="category">
+                        <hr></hr>
+                        <h3 className="b">CATEGORY</h3>
+                        <ul className="click" style={{ lineHeight: "3" }}>
+                        
                             <li>⭐ <a href="#">TRENDING</a></li>
                             <li>⏳ <a href="#">LASTEST</a></li>
                             <li>🎮 <a href="#">GAMES</a></li>
-                        </ul>
-                    </div>
-                    <div className="category">
-                        <hr />
-                        <h3 className="a">Category</h3>
-                        <ul className="click">
                             <li>🎧 <a href="#">SONGS</a></li>
                             <li>🍔 <a href="#">FOODS</a></li>
                             <li>⚽ <a href="#">SPORTS</a></li>
                         </ul>
                     </div>
+                    
                 </aside>
                 <section className="content">
                     {/* Cards here */}
@@ -133,14 +129,40 @@ const HomePage = () => {
                     <div className="card">
                         <div className="user-info">
                             <div className="avatar"></div>
-                            <span>Name #5555</span>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
                             <FollowButton />
                         </div>
                         <h4>The Best GPU of All Time [Games]</h4>
-                        <img src="https://lh3.google.com/u/1/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv=w1912-h920-iv1" alt="Best GPUs of All Time" className="image" />
+
+                        <img src="https://lh3.google.com/u/1/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv=w1912-h920-iv1" alt="Best GPUs of All Time" className="image" />            
+                         <button className="play" onClick={() => setPopupOpen(true)}>PLAY</button>
+                         {/* Pop-up Modal */}
+                         <PopupModal isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
+                    </div>
+                    <div className="card">
+                        <div className="user-info">
+                            <div className="avatar"></div>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
+                            <FollowButton />
+                        </div>
+                        <h4>Name of Title [Name of Type]</h4>
+                        <div className="placeholder"></div>
                         <button className="play" onClick={() => setPopupOpen(true)}>PLAY</button>
-                        {/* Pop-up Modal */}
-                        <PopupModal isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
+                         {/* Pop-up Modal */}
+                         <PopupModal isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
+                    </div>
+                    <div className="card">
+                        <div className="user-info">
+                            <div className="avatar"></div>
+                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
+                            <FollowButton />
+                        </div>
+                        <h4>The Best GPU of All Time [Games]</h4>
+                        <img src="https://lh3.google.com/u/1/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv=w1912-h920-iv1" alt="Best GPUs of All Time" className="image" />            
+                         <button className="play" onClick={() => setPopupOpen(true)}>PLAY</button>
+                         {/* Pop-up Modal */}
+                         <PopupModal isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
+                       
                     </div>
                     {/* More cards... */}
                 </section>
