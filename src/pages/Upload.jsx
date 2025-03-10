@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { FaUpload } from "react-icons/fa";
+import { FaUpload, FaTimes } from "react-icons/fa";
 import "./Upload.css";
 
 const Upload = () => {
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [quizThumbnail, setQuizThumbnail] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [categories] = useState([
     "List item 1",
     "List item 2",
@@ -17,11 +18,37 @@ const Upload = () => {
     "List item 8",
   ]);
 
-  const handleImageUpload = (event) => {
+  // อัปโหลด Thumbnail
+  const handleImageThumbnail = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setQuizThumbnail(URL.createObjectURL(file));
     }
+  };
+
+  // อัปโหลดหลายรูป
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+    const newImages = files.map((file) => ({
+      id: URL.createObjectURL(file), // ใช้ URL ชั่วคราวเพื่อ preview
+      src: URL.createObjectURL(file),
+      caption: "", // เริ่มต้นเป็นข้อความว่าง
+    }));
+    setUploadedImages([...uploadedImages, ...newImages]);
+  };
+
+  // ลบรูป
+  const handleRemoveImage = (id) => {
+    setUploadedImages(uploadedImages.filter((image) => image.id !== id));
+  };
+
+  // อัปเดตข้อความกำกับรูป
+  const handleCaptionChange = (id, text) => {
+    setUploadedImages(
+      uploadedImages.map((image) =>
+        image.id === id ? { ...image, caption: text } : image
+      )
+    );
   };
 
   return (
@@ -29,13 +56,12 @@ const Upload = () => {
       {/* Header */}
       <header className="upload-header">
         <div className="logo">
-          {/* ใช้รูปแทน HOMIE RANKING */}
-          <img src="https://lh3.google.com/u/0/d/1U5Tw6GqBu7qLwJk0gZncSssvMZp1tQg6=w1919-h869-iv1" alt="HOMIE RANKING"  />
+          <img src="https://lh3.google.com/u/0/d/1U5Tw6GqBu7qLwJk0gZncSssvMZp1tQg6=w1919-h869-iv1" alt="HOMIE RANKING" />
         </div>
 
         <div className="auth-buttons">
-          <button>LOGIN</button>
-          <button>SIGN IN</button>
+          <button className="auth-btn">LOGIN</button>
+          <button className="auth-btn">SIGN IN</button>
         </div>
       </header>
 
@@ -52,16 +78,16 @@ const Upload = () => {
         </div>
 
         {/* Quiz Description */}
-        <div className="input-des">
+        <div className="input-container">
           <label>Quiz Description</label>
           <input
+            type="text"
             placeholder="Enter quiz description"
             value={quizDescription}
-            onChange={(e) => setQuizDescription(e.target.value)
-            }
+            onChange={(e) => setQuizDescription(e.target.value)}
           />
         </div>
-      
+
         {/* Category */}
         <div className="category-container">
           <h2>Category</h2>
@@ -69,7 +95,7 @@ const Upload = () => {
             {categories.map((item, index) => (
               <div key={index} className="category-item">
                 <span>{item}</span>
-                <input type="checkbox"  />
+                <input type="checkbox" />
               </div>
             ))}
           </div>
@@ -77,17 +103,63 @@ const Upload = () => {
 
         {/* Quiz Thumbnail */}
         <div className="image-upload-container">
-  <label>Quiz Thumbnail</label>
-  <div className="image-upload-box" onClick={() => document.getElementById("imageUploadInput").click()}>
-    <FaUpload className="upload-icon" />
-    <input
-      id="imageUploadInput"
-      type="file"
-      accept="image/*"
-      onChange={handleImageUpload}
-      style={{ display: "none" }} 
-    />
-  </div>
+          <label>Quiz Thumbnail</label>
+          <div className="image-upload-box" onClick={() => document.getElementById("thumbnailUpload").click()}>
+            {quizThumbnail ? (
+              <img src={quizThumbnail} alt="Quiz Thumbnail" className="preview-image" />
+            ) : (
+              <FaUpload className="upload-icon" />
+            )}
+            <input
+              id="thumbnailUpload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageThumbnail}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+
+      {/* Buttons */}
+      <div className="button-container">
+          <button className="cancel-btn">Cancel</button>
+          <button className="confirm-btn">Confirm</button>
+        </div>
+
+        {/* Upload Images Section */}
+        <div className="image-upload-container">
+          <label>Upload Images</label>
+          <div className="image-upload-box" onClick={() => document.getElementById("imageUpload").click()}>
+            <FaUpload className="upload-icon" />
+            <input
+              id="imageUpload"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+
+
+        {/* Show Uploaded Images */}
+        <div className="uploaded-images">
+         {uploadedImages.map((image) => (
+        <div key={image.id} className="image-preview">
+         <img src={image.src} alt="Uploaded" className="preview-image" />
+         <input
+        type="text"
+        className="image-caption"
+        placeholder="Enter caption"
+        value={image.caption}
+        onChange={(e) => handleCaptionChange(image.id, e.target.value)}
+      />
+      <button className="remove-btn" onClick={() => handleRemoveImage(image.id)}>
+        <FaTimes />
+      </button>
+    </div>
+  ))}
 </div>
 
         {/* Buttons */}

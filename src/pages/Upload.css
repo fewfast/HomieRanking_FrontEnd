@@ -137,6 +137,7 @@
   background: #eee;
   cursor: pointer;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+  margin-bottom: 20px;
 }
 
 .image-upload-container label {
@@ -189,4 +190,15 @@
   border-radius: 5px;
   font-size: 16px;
   background: #f0e8e8; /* เปลี่ยนสีพื้นหลัง */
+}
+
+
+/* ปรับขนาดของรูปให้พอดีกับกรอบ */
+.uploaded-image {
+  max-width: 100%;  /* ทำให้รูปไม่ใหญ่เกิน upload-box */
+  max-height: 300px; /* จำกัดความสูง */
+  display: block;
+  margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+  border-radius: 10px;
+  object-fit: contain; /* ให้รูปไม่ถูกบีบแต่ไม่ทะลุ */
 }
