@@ -1,0 +1,130 @@
+/*Gamepage.css*/
+
+.game-container {
+    text-align: center;
+    background: linear-gradient(to bottom, #d28b1a, #8c5703);
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .round-info {
+    display: inline-block; /* ทำให้กรอบพอดีกับข้อความ */
+    background-color: black; /* พื้นหลังสีดำ */
+    color: white; /* ตัวอักษรสีขาว */
+    padding: 10px 20px; /* เว้นระยะขอบให้ดูดี */
+    border-radius: 10px; /* ทำมุมโค้ง */
+    font-size: 1.2rem; /* ขนาดตัวอักษร */
+    font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้น */
+    margin-top: 10px;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 50px;
+    justify-content: center;
+    gap: 15px;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .image-grid img {
+    width: 210px;
+    height: auto;
+    padding: 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .image-grid img {
+    padding: 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .image-grid img.h1 {
+    background-color: grey; 
+    width: 220px;
+    height: auto;
+    padding: 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .image-grid img.h2 {
+    width: 150px;
+    height: auto;
+    padding: 10px 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+
+.close-btn {
+  display: block;
+  border: none;
+  cursor: pointer;
+  background-color: transparent; /* ลบพื้นหลัง */
+}
+
+  .image-grid img.no-hover:hover {
+    transform: none; /* ไม่ให้มีการขยาย */
+    cursor: default; /* เปลี่ยน cursor ให้เป็น default เมื่อ hover */
+  }
+  
+  .image-grid img:hover {
+    transform: scale(1.1);
+  }
+  
+  .winner-container {
+    margin-top: 30px;
+  }
+  
+  .winner-container img {
+    width: 300px;
+    height: auto;
+    border-radius: 15px;
+  }
+  
+  .image-pair {
+    display: flex; /* ใช้ flexbox เพื่อให้ภาพอยู่ในบรรทัดเดียวกัน */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+    gap: 20px; /* เว้นระยะห่างระหว่างภาพ */
+}
+
+.image-pair img {
+    width: 200px; /* ปรับขนาดรูปให้เหมาะสม */
+    height: auto;
+}
+
+.vs-container {
+  font-size: 24px; /* ขนาดตัวหนังสือ */
+  font-weight: bold;
+  height: auto;
+  margin-top: 50px;
+}
+
+.close-btn {
+  display: block;
+  border: none;
+  cursor: pointer;
+  background-color: transparent; /* ลบพื้นหลัง */
+}
