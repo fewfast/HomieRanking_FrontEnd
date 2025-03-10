@@ -8,3 +8,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HomePage />
   </React.StrictMode>
 );
+>>>>>>> main
