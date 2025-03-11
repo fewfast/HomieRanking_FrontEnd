@@ -1,180 +1,190 @@
 /* HomieRanking.css */
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 .container {
     background-color: #f3f4f6;
     min-height: 100vh;
   }
   
-  .header {
-    width: 100%; 
-    height: 7%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: linear-gradient(to right, #ff7f0e, #ffcc00);
-    /* padding: 16px; */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.header {
+  width: 100%; 
+  height: 7%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #ff7f0e, #ffcc00);
+  /* padding: 16px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .sidebar {
-    position: fixed;
-    width: 25%;
-    height: 80%;
-    margin-top: 45px;
-    background: white;
-    padding: 16px;
-    border-radius: 8px;
-    
-  }
+.sidebar {
+  position: fixed;
+  width: 22%;
+  height: 80%;
+  margin-top: 45px;
+  margin-right: 80%;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+}
   
-  .nav a, .nav button {
-    margin: 0 8px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+.nav a, .nav button {
+  margin: 0 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
   
-  .create, .login, .signin {
-    padding: 8px 16px;
-    border-radius: 50px;
-  }
+.create, .login, .signin {
+  padding: 8px 16px;
+  border-radius: 50px;
+}
   
-  .create {
-    background-color: black;
-    color: white;
-  }
+.create {
+  background-color: black;
+  color: white;
+}
   
-  .login, .signin {
-    background-color: black;
-    color: white;
-  }
+.login, .signin {
+  background-color: black;
+  color: white;
+}
   
-  .main {
-    display: flex;
-    padding: 24px;
-  }
+.main {
+  display: flex;
+  padding: 24px;
+}
   
-  .sidebar h3 {
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
+.sidebar h3 {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
   
-  .sidebar ul li {
-    list-style: none;
-    margin: 4px 0;
-  }
+.sidebar ul li {
+  list-style: none;
+  margin: 4px 0;
+}
   
-  .category{
-    font-family: "Inter", sans-serif;
-    font-weight:  bold;
-  }
+.category{
+  font-family: "Inter", sans-serif;
+  font-weight:  bold;
+}
 
-  .content {
-    flex: 1;
-    margin-left: 24px;
-    margin: 40px;
-  }
+.content {
+  flex: 1;
+  margin-left: 24px;
+  margin: 40px;
+}
   
-  .a {
-    text-align: center;
-  }
+.a {
+  text-align: center;
+}
 
-  .b {
-    text-align: center;
-    font-size: 25px;
-    text-decoration: underline;
-  }
+.b {
+  text-align: center;
+  font-size: 25px;
+  text-decoration: underline;
+}
 
-  .click {
-    display: flex;
-    flex-direction: column;  /* จัดให้อยู่ในแนวตั้ง */
-    align-items: center;     /* จัดกึ่งกลางแนวนอน */
-    list-style: none;        /* เอาจุดหน้า <li> ออก */
-    padding: 0;
-  }
+.click {
+  display: flex;
+  flex-direction: column;  /* จัดให้อยู่ในแนวตั้ง */
+  align-items: center;     /* จัดกึ่งกลางแนวนอน */
+  list-style: none;        /* เอาจุดหน้า <li> ออก */
+  padding: 0;
+}
   
-  .click a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    margin: 10px 0; /* ระยะห่างระหว่างแต่ละอัน */
-  }
+.click a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  margin: 10px 0; /* ระยะห่างระหว่างแต่ละอัน */
+}
 
-  .click a:active {
-    color: red; /* เปลี่ยนเป็นสีแดงเมื่อกด */
-  }
+.click a:active {
+  color: red; /* เปลี่ยนเป็นสีแดงเมื่อกด */
+}
 
-  .card {
-    margin-left: 35%;
-    margin-right: 5%;
-    background: white;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-  }
+.card {
+  margin-left: 25%;
+  margin-right: 25%;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
   
-  .user-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-  }
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
   
-  .avatar {
-    width: 40px;
-    height: 40px;
-    background: gray;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: gray;
+  border-radius: 50%;
+  margin-right: 8px;
+}
   
-  .follow, .followed {
-    margin-left: auto;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-weight: bold;
-  }
+.follow, .followed {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-weight: bold;
+}
   
-  .follow {
-    background: red;
-    color: white;
-  }
+.follow {
+  background: red;
+  color: white;
+}
   
-  .followed {
-    background: green;
-    color: white;
-  }
+.followed {
+  background: green;
+  color: white;
+}
   
-  .image {
-    width: 100%;
-    border-radius: 4px;
-    margin-top: 8px;
-  }
+.image {
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
   
-  .placeholder {
-    height: 160px;
-    background: #e5e7eb;
-    border-radius: 4px;
-    margin-top: 8px;
-  }
+.placeholder {
+  height: 160px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  margin-top: 8px;
+}
   
-  .play {
-    width: 100%;
-    background: black;
-    color: white;
-    padding: 8px;
-    border-radius: 4px;
-    margin-top: 8px;
-  }
+.play {
+  width: 100%;
+  background: black;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
 
-.popup-content {
-    background: linear-gradient(to bottom, #feda75, #e8a427);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+.popupPlay {
+  background: linear-gradient(to bottom, #feda75, #e8a427);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.popupLogin,.popupSignin{
+  background: linear-gradient(to right,#ffcc00, #ff7f0e);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
@@ -182,14 +192,6 @@
   border: none;
   cursor: pointer;
   background-color: transparent; /* ลบพื้นหลัง */
-}
-
-.logo_pop_up {
-  position: absolute; /* ตำแหน่งสัมพัทธ์กับองค์ประกอบแม่ */
-  display: block;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
 }
 
 .option-btn {
@@ -238,16 +240,17 @@
   color: #000000; 
 }
 
-.popup-overlay {  
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; 
 }
 
 /* ADDED: Input Fields */
@@ -258,22 +261,11 @@
   border-radius: 20px;
   border: 1px solid #ccc;
 }
-
-.popupLogin,.popupSignin{
-  background: linear-gradient(to right,#ffcc00, #ff7f0e);
-  border: none;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  width: 300px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
 /* ADDED: Login & Signup Buttons */
 .login-btn, .signup-btn {  
   width: 90%;
   padding: 10px;
-  background: linear-gradient(to right, #ff7f0e, #ffcc00);
+  background: black;
   border: none;
   color: white;
   font-size: 16px;
