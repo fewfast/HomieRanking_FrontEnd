@@ -1,21 +1,63 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FaUpload, FaTimes } from "react-icons/fa";
 import "./Upload.css";
 
+const LoginModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  return (
+      <div className="popup-overlay">
+          <div className="popupLogin">
+              <button className="close-btn" onClick={onClose}>
+                  <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+              </button>
+              <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+              <h2 className="inter-text">Log in</h2>
+              <h3 className="inter-small-text">Homie ranking</h3>
+              <input type="text" placeholder="Username" className="input-box" />
+              <input type="password" placeholder="Password" className="input-box" />
+              <button className="login-btn">Login</button>
+          </div>
+      </div>
+  );
+};
+
+const SigninModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  return (
+      <div className="popup-overlay">
+          <div className="popupSignin">
+              <button className="close-btn" onClick={onClose}>
+                  <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+              </button>
+              <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+              <h2 className="inter-text">Create Your Account</h2>
+              <h3 className="inter-small-text">Set your password for Homie ranking</h3>
+              <input type="text" placeholder="Username" className="input-box" />
+              <input type="password" placeholder="Password" className="input-box" />
+              <input type="password" placeholder="Confirm Password" className="input-box" />
+              <button className="signup-btn">Sign Up</button>
+          </div>
+      </div>
+  );
+};
+
 const Upload = () => {
+  const navigate = useNavigate();
+  const [popup, setPopup] = useState({ type: null, isOpen: false });
+  const openPopup = (type) => setPopup({ type, isOpen: true });
+  const closePopup = () => setPopup({ type: null, isOpen: false });
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
   const [quizThumbnail, setQuizThumbnail] = useState(null);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [categories] = useState([
-    "List item 1",
-    "List item 2",
-    "List item 3",
-    "List item 4",
-    "List item 5",
-    "List item 6",
-    "List item 7",
-    "List item 8",
+    "⭐TRENDING",
+    "🎧SONGS",
+    "🎮GAMES",
+    "⚽SPORTS",
+    "🍔FOODS",
+    "⏳LATEST",
   ]);
 
   // อัปโหลด Thumbnail
@@ -52,18 +94,27 @@ const Upload = () => {
   };
 
   return (
-    <div className="upload-container">
+
+    <div className="containerUpload">
       {/* Header */}
       <header className="upload-header">
         <div className="a">
-        <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="100px" style={ { marginLeft: "200px" }} alt= "HOMIE RANKING"/>
+        <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" 
+          width="100px" 
+          onClick={() => navigate("/")}
+          style={ { marginLeft: "200px", cursor: "pointer"}} 
+          alt= "HOMIE RANKING" 
+        />
         </div>
 
-        <div className="auth-buttons">
-          <button className="auth-btn">LOGIN</button>
-          <button className="auth-btn">SIGN IN</button>
+        <div className="nav">
+        <button className="login" onClick={() => openPopup("Login")}>LOGIN</button>
+        <button className="signin" onClick={() => openPopup("Signin")}>SIGN UP</button>
         </div>
       </header>
+
+      {popup.type === "Login" && <LoginModal isOpen={popup.isOpen} onClose={closePopup} />}
+      {popup.type === "Signin" && <SigninModal isOpen={popup.isOpen} onClose={closePopup} />}
 
       <div className="upload-box">
         {/* Quiz Title */}
@@ -106,7 +157,12 @@ const Upload = () => {
           <label>Quiz Thumbnail</label>
           <div className="image-upload-box" onClick={() => document.getElementById("thumbnailUpload").click()}>
             {quizThumbnail ? (
-              <img src={quizThumbnail} alt="Quiz Thumbnail" className="preview-image" />
+              <img 
+              src={quizThumbnail} 
+              alt="Quiz Thumbnail" 
+              className="preview-image"
+              style={{ maxHeight: "200px", maxWidth: "100%"}} 
+              />
             ) : (
               <FaUpload className="upload-icon" />
             )}
@@ -117,6 +173,7 @@ const Upload = () => {
               onChange={handleImageThumbnail}
               style={{ display: "none" }}
             />
+
           </div>
         </div>
 
@@ -146,15 +203,15 @@ const Upload = () => {
         {/* Show Uploaded Images */}
         <div className="uploaded-images">
          {uploadedImages.map((image) => (
-        <div key={image.id} className="image-preview">
-         <img src={image.src} alt="Uploaded" className="preview-image" />
+        <div key={image.id} className="image-preview" style={{ textAlign: "center" }}>
+         <img src={image.src} alt="Uploaded" className="preview-image" style={{ maxHeight: "300px", maxWidth: "100%", marginTop: "20px", display: "flex" }}  />
          <input
-        type="text"
-        className="image-caption"
-        placeholder="Enter caption"
-        value={image.caption}
-        onChange={(e) => handleCaptionChange(image.id, e.target.value)}
-      />
+          type="text"
+          className="image-caption"
+          placeholder="Enter caption"
+          value={image.caption}
+          onChange={(e) => handleCaptionChange(image.id, e.target.value)}
+        />
       <button className="remove-btn" onClick={() => handleRemoveImage(image.id)}>
         <FaTimes />
       </button>
@@ -169,6 +226,9 @@ const Upload = () => {
         </div>
       </div>
     </div>
+
+    
+
   );
 };
 
