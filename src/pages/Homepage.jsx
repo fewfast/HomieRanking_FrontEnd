@@ -10,9 +10,9 @@ const PopupModal = ({ isOpen, onClose }) => {
             <div className="popupPlay">
                 <div className="pop">
                     <button className="close-btn" onClick={onClose}>
-                        <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+                        <img src="src/img/Return.png" width="30" alt="Close" />
                     </button>
-                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="60" alt="Logo" />
+                    <img src="src/img/Logo.png" width="60" alt="Logo" />
                 </div>
                 <h2 className="titan-text" style={{ fontSize: "3rem" }}>Choose</h2>
                 <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
@@ -30,9 +30,9 @@ const LoginModal = ({ isOpen, onClose }) => {
         <div className="popup-overlay">
             <div className="popupLogin">
                 <button className="close-btn" onClick={onClose}>
-                    <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+                    <img src="src/img/Return.png" width="30" alt="Close" />
                 </button>
-                <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+                <img src="src/img/Logo.png" width="200" alt="Logo" />
                 <h2 className="inter-text">Log in</h2>
                 <h3 className="inter-small-text">Homie ranking</h3>
                 <input type="text" placeholder="Username" className="input-box" />
@@ -49,9 +49,9 @@ const SigninModal = ({ isOpen, onClose }) => {
         <div className="popup-overlay">
             <div className="popupSignin">
                 <button className="close-btn" onClick={onClose}>
-                    <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+                    <img src="src/img/Return.png" width="30" alt="Close" />
                 </button>
-                <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+                <img src="src/img/Logo.png" width="200" alt="Logo" />
                 <h2 className="inter-text">Create Your Account</h2>
                 <h3 className="inter-small-text">Set your password for Homie ranking</h3>
                 <input type="text" placeholder="Username" className="input-box" />
@@ -85,11 +85,30 @@ const HomePage = () => {
     const openPopup = (type) => setPopup({ type, isOpen: true });
     const closePopup = () => setPopup({ type: null, isOpen: false });
     
+    const Content = ({ Title, image, alt, category }) => (
+        <div>
+            <div className="user-info">
+                <div className="avatar"></div>
+                <span style={{ fontWeight: "bold" }}>Name #5555</span>
+                <FollowButton />
+            </div>
+        <h4>
+            <span>{Title}</span>
+            <span> </span>
+            <a href="#">[{category}]</a> 
+        </h4>
+        {/* Connect with Back_End */} 
+        <img src={image} alt={alt} className="image" />
+        <button className="play" onClick={() => openPopup("Play")}>PLAY</button>
+        </div>
+    );
+    
+    
     return (
         <div className="container">
             <header className="header">
                 <div className="a">
-                    <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="100px" style={{ marginLeft: "200px" }} alt="Logo" />
+                    <img src="src/img/Logo.png" width="100px" style={{ marginLeft: "200px" }} alt="Logo" />
                 </div>
                 <nav className="nav">
                     <span style={{ fontWeight: "bold", textDecoration: "underline" }}>TEMPLATE</span>
@@ -101,7 +120,7 @@ const HomePage = () => {
             <main className="main">
                 <aside className="sidebar">
 			<div className="a">
-				<img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="150" />
+				<img src="src/img/Logo.png" width="150" />
 			</div>
 
                     <div className="category">
@@ -119,26 +138,29 @@ const HomePage = () => {
                 </aside>
 
                 <section className="content">
-                    <div className="card">
-                        <div className="user-info">
-                            <div className="avatar"></div>
-                            <span style={{ fontWeight: "bold" }}>Name #5555</span>
-                            <FollowButton />
-                        </div>
-                        <h4>The Best GPU of All Time [Games]</h4>
-                        <img src="https://lh3.google.com/u/1/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv=w1912-h920-iv1" alt="Best GPUs of All Time" className="image" />            
-                        <button className="play" onClick={() => openPopup("Play")}>PLAY</button>     
-                    </div>
                     {[...Array(6)].map((_, index) => (
                         <div className="card" key={index}>
-                            <div className="user-info">
-                                <div className="avatar"></div>
-                                <span style={{ fontWeight: "bold" }}>Name #5555</span>
-                                <FollowButton />
-                            </div>
-                            <h4>Name of Title [Name of Type]</h4>
-                            <div className="placeholder"></div>
-                            <button className="play" onClick={() => openPopup("Play")}>PLAY</button>
+                            {index === 0 ? (
+                                <Content 
+                                    Title="The Best GPU of All time"
+                                    image="https://lh3.googleusercontent.com/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv"
+                                    alt="The Best GPU"
+                                    category="GAMES"
+                                /> 
+                            ) : index === 1  ? (
+                                <Content 
+                                    Title="The Best Fast Food in the World"
+                                    image="https://247news.com.pk/wp-content/uploads/2024/11/Best-Fast-Food-Suggestions-for-Visitors-in-Islamabad.webp"
+                                    alt="The Best GPU"
+                                    category="FOODS"
+                                /> 
+                            ) : <Content 
+                                Title="Name of Title"
+                                image="https://lh3.googleusercontent.com/d/1Y-laWcMHPs2iDOwS28ubWUTITePA-hYJ"
+                                alt="Example"
+                                category="CATEGORY"
+                                /> 
+                            }
                         </div>
                     ))}
                 </section>

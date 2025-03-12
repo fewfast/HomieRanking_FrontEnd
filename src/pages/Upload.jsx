@@ -9,9 +9,9 @@ const LoginModal = ({ isOpen, onClose }) => {
       <div className="popup-overlay">
           <div className="popupLogin">
               <button className="close-btn" onClick={onClose}>
-                  <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+                  <img src="src/img/Return.png" width="30" alt="Close" />
               </button>
-              <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+              <img src="src/img/Logo.png" width="200" alt="Logo" />
               <h2 className="inter-text">Log in</h2>
               <h3 className="inter-small-text">Homie ranking</h3>
               <input type="text" placeholder="Username" className="input-box" />
@@ -28,9 +28,9 @@ const SigninModal = ({ isOpen, onClose }) => {
       <div className="popup-overlay">
           <div className="popupSignin">
               <button className="close-btn" onClick={onClose}>
-                  <img src="https://lh3.google.com/u/0/d/1LYVUNI9zjYLnigkJ_jCIWk_J7x7aiVSS=w1920-h927-iv2" width="30" alt="Close" />
+                  <img src="src/img/Return.png" width="30" alt="Close" />
               </button>
-              <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="Logo" />
+              <img src="src/img/Logo.png" width="200" alt="Logo" />
               <h2 className="inter-text">Create Your Account</h2>
               <h3 className="inter-small-text">Set your password for Homie ranking</h3>
               <input type="text" placeholder="Username" className="input-box" />
@@ -99,7 +99,7 @@ const Upload = () => {
       {/* Header */}
       <header className="upload-header">
         <div className="a">
-        <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" 
+        <img src="src/img/Logo.png" 
           width="100px" 
           onClick={() => navigate("/")}
           style={ { marginLeft: "200px", cursor: "pointer"}} 
