@@ -37,11 +37,14 @@ const Gamepage = () => {
     }
   };
   return (
-     
-    <div className="game-container">
+    
+  
+    <div className="game-container" >
+      <div className= "c">
+        <img src="https://lh3.google.com/u/0/d/16EK2E7W3rcM56t5DTBVnTh0TvXgTY8S-=w1920-h927-iv1" width="200" alt="c" />
+      </div>
       <h1 className="Jost_text">Which one wins?</h1>
       <p className="round-info">Round of {round}</p>
-      
       {imageLinks.length >= 2 && (
   <div className="image-grid">
     <div className="image-container">

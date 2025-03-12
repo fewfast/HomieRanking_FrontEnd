@@ -1,12 +1,26 @@
 /*Gamepage.css*/
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
 .game-container {
   text-align: center;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(to bottom, #d28b1a, #8c5703);
   color: white;
-  padding: 20px;
-  min-height: 100vh;
   font-family: 'Jost', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  
 }
 
 .round-info {
@@ -127,4 +141,17 @@ display: block;
 border: none;
 cursor: pointer;
 background-color: transparent; /* ลบพื้นหลัง */
+}
+
+
+.c {
+  margin-right : 1200px; 
+  height: auto;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* ปรับระยะห่างระหว่างโลโก้กับข้อความ */
 }
