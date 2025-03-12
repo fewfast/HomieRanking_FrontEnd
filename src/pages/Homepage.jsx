@@ -16,9 +16,9 @@ const PopupModal = ({ isOpen, onClose }) => {
                 </div>
                 <h2 className="titan-text" style={{ fontSize: "3rem" }}>Choose</h2>
                 <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
-                <button className="option-btn" onClick={() => navigate("/gamepage")}>32 pic.</button>
-                <button className="option-btn" onClick={() => navigate("/gamepage")}>64 pic.</button>
-                <button className="option-btn" onClick={() => navigate("/gamepage")}>128 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage?round=32")}>32 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage?round=64")}>64 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage?round=128")}>128 pic.</button>
             </div>
         </div>
     );
@@ -95,11 +95,11 @@ const HomePage = () => {
         <h4>
             <span>{Title}</span>
             <span> </span>
-            <a href="#">[{category}]</a> 
+            <a href={`#${category}`}>[{category}]</a> 
         </h4>
         {/* Connect with Back_End */} 
         <img src={image} alt={alt} className="image" />
-        <button className="play" onClick={() => openPopup("Play")}>PLAY</button>
+        <button className="play" onClick={() => openPopup("Play")} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
     
@@ -111,7 +111,7 @@ const HomePage = () => {
                     <img src="src/img/Logo.png" width="100px" style={{ marginLeft: "200px" }} alt="Logo" />
                 </div>
                 <nav className="nav">
-                    <span style={{ fontWeight: "bold", textDecoration: "underline" }}>TEMPLATE</span>
+                    <span style={{ fontWeight: "bold", textDecoration: "underline"}}>TEMPLATE</span>
                     <button className="create" onClick={() => navigate("/upload")}>CREATE</button>
                     <button className="login" onClick={() => openPopup("Login")}>LOGIN</button>
                     <button className="signin" onClick={() => openPopup("Signin")}>SIGN UP</button>
@@ -127,12 +127,12 @@ const HomePage = () => {
                         <h3 className="b">CATEGORY</h3>
                         <ul className="click" style={{ lineHeight: "3" }}>
 
-                            <li>⭐ <a href="#">TRENDING</a></li>
-                            <li>⏳ <a href="#">LATEST</a></li>
-                            <li>🎮 <a href="#">GAMES</a></li>
-                            <li>🎧 <a href="#">SONGS</a></li>
-                            <li>🍔 <a href="#">FOODS</a></li>
-                            <li>⚽ <a href="#">SPORTS</a></li>
+                            <li>⭐ <a href="#TRENDING">TRENDING</a></li>
+                            <li>⏳ <a href="#LATEST">LATEST</a></li>
+                            <li>🎮 <a href="#GAMES">GAMES</a></li>
+                            <li>🎧 <a href="#SONGS">SONGS</a></li>
+                            <li>🍔 <a href="#FOODS">FOODS</a></li>
+                            <li>⚽ <a href="#SPORTS">SPORTS</a></li>
                         </ul>
                     </div>
                 </aside>
