@@ -149,7 +149,7 @@ const HomePage = () => {
                                 /> 
                             ) : index === 1  ? (
                                 <Content 
-                                    Title="The Best Fast Food in the World"
+                                    Title="The Best FastFood in the World"
                                     image="https://247news.com.pk/wp-content/uploads/2024/11/Best-Fast-Food-Suggestions-for-Visitors-in-Islamabad.webp"
                                     alt="The Best GPU"
                                     category="FOODS"
