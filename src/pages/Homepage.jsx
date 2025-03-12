@@ -3,6 +3,7 @@ import "./Homepage.css";
 import { useNavigate } from 'react-router-dom';
 
 const PopupModal = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
     if (!isOpen) return null;
     return (
         <div className="popup-overlay">
@@ -15,9 +16,9 @@ const PopupModal = ({ isOpen, onClose }) => {
                 </div>
                 <h2 className="titan-text" style={{ fontSize: "3rem" }}>Choose</h2>
                 <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
-                <button className="option-btn">32 pic.</button>
-                <button className="option-btn">64 pic.</button>
-                <button className="option-btn">128 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage")}>32 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage")}>64 pic.</button>
+                <button className="option-btn" onClick={() => navigate("/gamepage")}>128 pic.</button>
             </div>
         </div>
     );
