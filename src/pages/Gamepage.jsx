@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useNavigate , useLocation } from 'react-router-dom';
 import "./Gamepage.css";
 
 const PopWinner = () => {
   const navigate = useNavigate();
-
   return (
     <div className="pop-up-overlay">
       <div className="pop-up-winner">
@@ -22,27 +20,35 @@ const PopWinner = () => {
 
 
 const Gamepage = () => {
-  const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
   const [selectedImages, setSelectedImages] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const initialRound = parseInt(queryParams.get("round")) || 0;
+  const initialRound = parseInt(queryParams.get("round"), 10) || 0;
   const [roundall, setRoundAll] = useState(initialRound);
   const [round, setRound] = useState(1);
+
+  const openPopup = (type) => setPopup({ type, isOpen: true });
+  const closePopup = () => setPopup({ type: null, isOpen: false });
 
   const [imageLinks, setImageLinks] = useState([
     "https://promotions.co.th/wp-content/uploads/2025/01/nvidia-rtx-5090.jpg",
     "https://storage.googleapis.com/file-computeandmore/ckeditor_upload/2021/09/04/gigabyte-amd-radeon-rx-6600-non-xt-eagle-graphics-card-_1.jpg",
+    "https://www.uboncomputer.co.th/pub/media/catalog/product/cache/566bac40c34e1b79304197de40a22c99/1/_/1_489.jpg",
+    "https://storage.googleapis.com/file-computeandmore/large_images/7a0a04f7-c99e-40c0-ae2a-f7af210ac678.png",
+    "https://promotions.co.th/wp-content/uploads/2025/01/nvidia-rtx-5090.jpg",
+    "https://storage.googleapis.com/file-computeandmore/ckeditor_upload/2021/09/04/gigabyte-amd-radeon-rx-6600-non-xt-eagle-graphics-card-_1.jpg",
+    "https://www.uboncomputer.co.th/pub/media/catalog/product/cache/566bac40c34e1b79304197de40a22c99/1/_/1_489.jpg",
+    "https://storage.googleapis.com/file-computeandmore/large_images/7a0a04f7-c99e-40c0-ae2a-f7af210ac678.png",
+    "https://promotions.co.th/wp-content/uploads/2025/01/nvidia-rtx-5090.jpg",
+    "https://storage.googleapis.com/file-computeandmore/ckeditor_upload/2021/09/04/gigabyte-amd-radeon-rx-6600-non-xt-eagle-graphics-card-_1.jpg",
+    "https://www.uboncomputer.co.th/pub/media/catalog/product/cache/566bac40c34e1b79304197de40a22c99/1/_/1_489.jpg",
+    "https://storage.googleapis.com/file-computeandmore/large_images/7a0a04f7-c99e-40c0-ae2a-f7af210ac678.png",
   ]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowOverlay(true);
-    }, 2000);
-
-    return () => clearTimeout(timer); 
-  }, []);
+  const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
 
   useEffect(() => {
     if (round >= roundall) {
@@ -55,30 +61,34 @@ const Gamepage = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.images && data.images.length > 0) {
-          setImageLinks(data.images);
-          setRound(1);
+          const shuffledImages = shuffleArray(data.images);  // ใช้ shuffleArray ที่นี่
+          setImageLinks(shuffledImages);
+          setRound(1);  // รีเซ็ตจำนวนรอบเริ่มต้น
+  
+          const totalRounds = Math.pow(2, Math.floor(Math.log2(shuffledImages.length || 2)));
+          setRoundAll(totalRounds);  // อัปเดตค่าของ roundall
         } else {
-          setImageLinks([
-            "src/img/Return.png"
-          ]);
+          setImageLinks(["src/img/Return.png"]);
         }
-        setRound(Math.pow(2, Math.floor(Math.log2(data.images.length || 2))));
       })
       .catch((err) => console.error("Error fetching images:", err));
   }, []);
 
   const handleSelect = (image) => {
     const newSelection = [...selectedImages, image];
-    if (newSelection.length === imageLinks.length / 2) {
-      setImageLinks(newSelection);
-      setSelectedImages([]);
-      setRoundAll(roundall); 
-      setRound(1); 
+
+    if (imageLinks.length === 2) {
+      setImageLinks([image]);
     } else {
       setSelectedImages(newSelection);
-      setRound(round => round + 1); 
+      const remainingImages = imageLinks.slice(2);
+      setImageLinks(shuffleArray(remainingImages));
     }
+
+    setRound(round + 1);
   };
+
+
   return (
   
   <div className="game-container" >
@@ -133,10 +143,7 @@ const Gamepage = () => {
         <div className="winner-container">
           <h2>1st Winner!</h2>
           <img src={imageLinks[0]} alt="Winner" style={{ width: "550px", height: "400px" }}/>
-          <div className={`overlay-show-pop ${showOverlay ? 'show' : ''}`}>
-            <PopWinner/>
-          </div>
-          
+          <h2  onClick={() => Pup} style={{ cursor: "pointer" }}>FINISH</h2>
         </div>
       )}
   </div>

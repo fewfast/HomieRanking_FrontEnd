@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Homepage.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 
 const PopupModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
@@ -80,11 +80,15 @@ const FollowButton = () => {
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const category = queryParams.get("category");
+
     const [popup, setPopup] = useState({ type: null, isOpen: false });
-    
+
     const openPopup = (type) => setPopup({ type, isOpen: true });
     const closePopup = () => setPopup({ type: null, isOpen: false });
-    
+
     const Content = ({ Title, image, alt, category }) => (
         <div>
             <div className="user-info">
@@ -95,13 +99,46 @@ const HomePage = () => {
         <h4>
             <span>{Title}</span>
             <span> </span>
-            <a href={`#${category}`}>[{category}]</a> 
+            <a href={`?category=${category}`}>[{category}]</a> 
         </h4>
         {/* Connect with Back_End */} 
         <img src={image} alt={alt} className="image" />
         <button className="play" onClick={() => openPopup("Play")} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
+
+    const contentData = [
+        { 
+          Title: "The Best GPU of All time", 
+          image: "https://lh3.googleusercontent.com/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv", 
+          alt: "The Best GPU", 
+          category: "GAMES" 
+        },
+        { 
+          Title: "The Best FastFood in the World", 
+          image: "https://247news.com.pk/wp-content/uploads/2024/11/Best-Fast-Food-Suggestions-for-Visitors-in-Islamabad.webp", 
+          alt: "The Best FastFood", 
+          category: "FOODS" 
+        },
+        { 
+          Title: "The Best THAI Songs", 
+          image: "https://res.klook.com/image/upload/v1729240216/thsosfuiyuagpqkldx5y.jpg", 
+          alt: "Thai song", 
+          category: "SONGS" 
+        },
+        { 
+          Title: "Messi or Ronaldo?", 
+          image: "https://lahstalon.org/wp-content/uploads/2024/05/Real-Ronaldo-V-Messi-2.png", 
+          alt: "Messi is better", 
+          category: "SPORTS" 
+        },
+        { 
+          Title: "Example Title", 
+          image: "https://lh3.googleusercontent.com/d/1Y-laWcMHPs2iDOwS28ubWUTITePA-hYJ", 
+          alt: "Example", 
+          category: "CATEGORY" 
+        }
+      ];
     
     
     return (
@@ -119,50 +156,33 @@ const HomePage = () => {
             </header>
             <main className="main">
                 <aside className="sidebar">
-			<div className="a">
-				<img src="src/img/Logo.png" width="150" />
-			</div>
+                    <div className="a">
+                        <img src="src/img/Logo.png" width="150" />
+                    </div>
 
                     <div className="category">
                         <h3 className="b">CATEGORY</h3>
                         <ul className="click" style={{ lineHeight: "3" }}>
-
-                            <li>⭐ <a href="#TRENDING">TRENDING</a></li>
-                            <li>⏳ <a href="#LATEST">LATEST</a></li>
-                            <li>🎮 <a href="#GAMES">GAMES</a></li>
-                            <li>🎧 <a href="#SONGS">SONGS</a></li>
-                            <li>🍔 <a href="#FOODS">FOODS</a></li>
-                            <li>⚽ <a href="#SPORTS">SPORTS</a></li>
+                            <li>⭐ <a href="?">TRENDING</a></li>
+                            <li>⏳ <a href="?">LATEST</a></li>
+                            <li>🎮 <a href="?category=GAMES">GAMES</a></li>
+                            <li>🎧 <a href="?category=SONGS">SONGS</a></li>
+                            <li>🍔 <a href="?category=FOODS">FOODS</a></li>
+                            <li>⚽ <a href="?category=SPORTS">SPORTS</a></li>
+                            <li>🎬 <a href="?category=MOVIES">MOVIES</a></li>
                         </ul>
                     </div>
                 </aside>
 
                 <section className="content">
-                    {[...Array(6)].map((_, index) => (
-                        <div className="card" key={index}>
-                            {index === 0 ? (
-                                <Content 
-                                    Title="The Best GPU of All time"
-                                    image="https://lh3.googleusercontent.com/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv"
-                                    alt="The Best GPU"
-                                    category="GAMES"
-                                /> 
-                            ) : index === 1  ? (
-                                <Content 
-                                    Title="The Best FastFood in the World"
-                                    image="https://247news.com.pk/wp-content/uploads/2024/11/Best-Fast-Food-Suggestions-for-Visitors-in-Islamabad.webp"
-                                    alt="The Best GPU"
-                                    category="FOODS"
-                                /> 
-                            ) : <Content 
-                                Title="Name of Title"
-                                image="https://lh3.googleusercontent.com/d/1Y-laWcMHPs2iDOwS28ubWUTITePA-hYJ"
-                                alt="Example"
-                                category="CATEGORY"
-                                /> 
-                            }
-                        </div>
-                    ))}
+                    {contentData
+                        .filter(item => !category || item.category.toUpperCase() === category.toUpperCase())
+                        .map((item, index) => (
+                            <div className="card" key={index}>
+                                <Content {...item} />
+                            </div>
+                        )
+                    )}
                 </section>
             </main>
             {popup.type === "Play" && <PopupModal isOpen={popup.isOpen} onClose={closePopup} />}
