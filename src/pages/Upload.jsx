@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaUpload, FaTimes } from "react-icons/fa";
 import "./Upload.css";
+import { CategoriesContext } from "./CategoriesContext";
 
 const LoginModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -44,6 +45,7 @@ const SigninModal = ({ isOpen, onClose }) => {
 
 const Upload = () => {
   const navigate = useNavigate();
+  const { categories } = useContext(CategoriesContext);
   const [popup, setPopup] = useState({ type: null, isOpen: false });
   const openPopup = (type) => setPopup({ type, isOpen: true });
   const closePopup = () => setPopup({ type: null, isOpen: false });
@@ -51,14 +53,6 @@ const Upload = () => {
   const [quizDescription, setQuizDescription] = useState("");
   const [quizThumbnail, setQuizThumbnail] = useState(null);
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [categories] = useState([
-    "⭐TRENDING",
-    "🎧SONGS",
-    "🎮GAMES",
-    "⚽SPORTS",
-    "🍔FOODS",
-    "⏳LATEST",
-  ]);
 
   // อัปโหลด Thumbnail
   const handleImageThumbnail = (event) => {
@@ -143,11 +137,15 @@ const Upload = () => {
         <div className="category-container">
           <h2>Category</h2>
           <div className="category-box">
-            {categories.map((item, index) => (
+            {categories.map((cat, index) => (
+              [ cat.name === "TRENDING" || cat.name === "LATEST" ? null : 
               <div key={index} className="category-item">
-                <span>{item}</span>
-                <input type="checkbox" />
+                <span>
+                  {cat.icon} {cat.name}
+                </span>
+                <input type="radio" name="option" value={cat.name}/>
               </div>
+              ]
             ))}
           </div>
         </div>
@@ -177,14 +175,9 @@ const Upload = () => {
           </div>
         </div>
 
-      {/* Buttons */}
-      <div className="button-container">
-          <button className="cancel-btn">Cancel</button>
-          <button className="confirm-btn">Confirm</button>
-        </div>
 
         {/* Upload Images Section */}
-        <div className="image-upload-container">
+        <div className="image-upload-container" style={{ marginTop: "60px" }}>
           <label>Upload Images</label>
           <div className="image-upload-box" onClick={() => document.getElementById("imageUpload").click()}>
             <FaUpload className="upload-icon" />
@@ -208,7 +201,7 @@ const Upload = () => {
          <input
           type="text"
           className="image-caption"
-          placeholder="Enter caption"
+          placeholder="Enter Name"
           value={image.caption}
           onChange={(e) => handleCaptionChange(image.id, e.target.value)}
         />
@@ -226,9 +219,6 @@ const Upload = () => {
         </div>
       </div>
     </div>
-
-    
-
   );
 };
 

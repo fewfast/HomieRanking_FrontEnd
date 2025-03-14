@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Homepage.css";
 import { useNavigate , useLocation } from 'react-router-dom';
+import { CategoriesContext } from "./CategoriesContext";
+import { DataContentContext } from "./DataContentContext";
 
-const PopupModal = ({ isOpen, onClose }) => {
+const PopupModal = ({ isOpen, onClose, Title }) => {
     const navigate = useNavigate();
     if (!isOpen) return null;
     return (
@@ -16,9 +18,9 @@ const PopupModal = ({ isOpen, onClose }) => {
                 </div>
                 <h2 className="titan-text" style={{ fontSize: "3rem" }}>Choose</h2>
                 <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
-                <button className="option-btn" onClick={() => navigate("/gamepage?round=32")}>32 pic.</button>
-                <button className="option-btn" onClick={() => navigate("/gamepage?round=64")}>64 pic.</button>
-                <button className="option-btn" onClick={() => navigate("/gamepage?round=128")}>128 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=32&Title=${Title}`)}>32 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=64&Title=${Title}`)}>64 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=128&Title=${Title}`)}>128 pic.</button>
             </div>
         </div>
     );
@@ -83,64 +85,33 @@ const HomePage = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const category = queryParams.get("category");
+    const { categories } = useContext(CategoriesContext);
+    const { datacontent } = useContext(DataContentContext);
 
-    const [popup, setPopup] = useState({ type: null, isOpen: false });
+    const [popup, setPopup] = useState({ type: null, isOpen: false, Title: null });
 
-    const openPopup = (type) => setPopup({ type, isOpen: true });
+    const openPopup = (type , Title) => setPopup({ type, isOpen: true, Title });
     const closePopup = () => setPopup({ type: null, isOpen: false });
 
-    const Content = ({ Title, image, alt, category }) => (
+    {/* Content Template */} 
+    const Content = ( datacontent ) => (
         <div>
             <div className="user-info">
                 <div className="avatar"></div>
                 <span style={{ fontWeight: "bold" }}>Name #5555</span>
                 <FollowButton />
             </div>
-        <h4>
-            <span>{Title}</span>
-            <span> </span>
-            <a href={`?category=${category}`}>[{category}]</a> 
+        <h4 style={{ fontSize: "1.2rem" }}>
+            <span>{datacontent.Title} </span>
+            <a href={`?category=${datacontent.category}`}>[{datacontent.category}]</a> 
         </h4>
+        <div>{datacontent.description}</div>
         {/* Connect with Back_End */} 
-        <img src={image} alt={alt} className="image" />
-        <button className="play" onClick={() => openPopup("Play")} style={{ cursor: "pointer" }}>PLAY</button>
+        <img src={datacontent.thumbnail} alt={datacontent.Title} className="image" />
+        <button className="play" onClick={() => openPopup("Play", datacontent.Title)} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
-
-    const contentData = [
-        { 
-          Title: "The Best GPU of All time", 
-          image: "https://lh3.googleusercontent.com/d/1lKAjHM01VEY2FgJ-aM7qsB0TM-quBwRv", 
-          alt: "The Best GPU", 
-          category: "GAMES" 
-        },
-        { 
-          Title: "The Best FastFood in the World", 
-          image: "https://247news.com.pk/wp-content/uploads/2024/11/Best-Fast-Food-Suggestions-for-Visitors-in-Islamabad.webp", 
-          alt: "The Best FastFood", 
-          category: "FOODS" 
-        },
-        { 
-          Title: "The Best THAI Songs", 
-          image: "https://res.klook.com/image/upload/v1729240216/thsosfuiyuagpqkldx5y.jpg", 
-          alt: "Thai song", 
-          category: "SONGS" 
-        },
-        { 
-          Title: "Messi or Ronaldo?", 
-          image: "https://lahstalon.org/wp-content/uploads/2024/05/Real-Ronaldo-V-Messi-2.png", 
-          alt: "Messi is better", 
-          category: "SPORTS" 
-        },
-        { 
-          Title: "Example Title", 
-          image: "https://lh3.googleusercontent.com/d/1Y-laWcMHPs2iDOwS28ubWUTITePA-hYJ", 
-          alt: "Example", 
-          category: "CATEGORY" 
-        }
-      ];
-    
-    
+       
     return (
         <div className="container">
             <header className="header">
@@ -163,19 +134,17 @@ const HomePage = () => {
                     <div className="category">
                         <h3 className="b">CATEGORY</h3>
                         <ul className="click" style={{ lineHeight: "3" }}>
-                            <li>⭐ <a href="?">TRENDING</a></li>
-                            <li>⏳ <a href="?">LATEST</a></li>
-                            <li>🎮 <a href="?category=GAMES">GAMES</a></li>
-                            <li>🎧 <a href="?category=SONGS">SONGS</a></li>
-                            <li>🍔 <a href="?category=FOODS">FOODS</a></li>
-                            <li>⚽ <a href="?category=SPORTS">SPORTS</a></li>
-                            <li>🎬 <a href="?category=MOVIES">MOVIES</a></li>
+                            {categories.map((cat, index) => (
+                                <li key={index}>
+                                    {cat.icon} <a href={cat.name === "TRENDING" || cat.name === "LATEST" ? "?" : `?category=${cat.name}`}>{cat.name}</a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </aside>
 
                 <section className="content">
-                    {contentData
+                    {datacontent
                         .filter(item => !category || item.category.toUpperCase() === category.toUpperCase())
                         .map((item, index) => (
                             <div className="card" key={index}>
@@ -185,7 +154,7 @@ const HomePage = () => {
                     )}
                 </section>
             </main>
-            {popup.type === "Play" && <PopupModal isOpen={popup.isOpen} onClose={closePopup} />}
+            {popup.type === "Play" && <PopupModal isOpen={popup.isOpen} onClose={closePopup} Title={popup.Title} />}
             {popup.type === "Login" && <LoginModal isOpen={popup.isOpen} onClose={closePopup} />}
             {popup.type === "Signin" && <SigninModal isOpen={popup.isOpen} onClose={closePopup} />}
         </div>
