@@ -177,15 +177,24 @@ html, body {
   font-weight: 550;
   width: 120px;
   height: 45px;
-  background: black;
+  background: rgb(199, 0, 0);
   color: white;
 }
 
-.overlay-show-pop {
-  opacity: 0; 
-  transition: opacity 0.5s ease-in-out;
+.finish-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.overlay-show-pop.show {
-  opacity: 1;
+.finish-btn {
+  background-color: black;
+  width: 135px;
+  height: 65px;
+  border-radius: 30px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 65px; 
 }

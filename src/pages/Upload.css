@@ -143,7 +143,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 .login, .signin {
@@ -156,7 +156,7 @@
 .cancel-btn {
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
   width: 150px;
@@ -171,6 +171,24 @@
 .cancel-btn {
   background: red;
   color: white;
+}
+
+.image-caption {
+  border-radius: 20px;
+  width: 300px;
+  height: 20px;
+}
+
+.remove-btn {
+  margin-top: 5px;
+  width: 50px;
+  height: 27px;
+  color: white;
+  background: rgb(255, 0, 0); 
+  border-radius: 20px;
+  margin-left: 5px;
+  border: 2px solid Red;
+  cursor: pointer;
 }
 
 .confirm-btn:hover,
