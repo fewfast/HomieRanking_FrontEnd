@@ -41,6 +41,16 @@
   padding: 8px 16px;
   border-radius: 50px;
 }
+
+.profile {
+  padding: 5px 5px;
+  border-radius: 50px;
+}
+
+.profile {
+  background-color: black;
+  color: white;
+}
   
 .create {
   background-color: black;
@@ -125,9 +135,26 @@
 .avatar {
   width: 40px;
   height: 40px;
-  background: gray;
+  background: rgb(151, 151, 151);
   border-radius: 50%;
   margin-right: 8px;
+}
+
+.avatar-circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: white;
+  text-align: center;
+  vertical-align: middle;
+  border: #ffffff 1px solid;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: auto;
 }
   
 .follow, .followed {
@@ -256,7 +283,7 @@
 
 /* ADDED: Input Fields */
 .input-box {  
-  width: 90%;
+  width: 93%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 20px;
@@ -276,4 +303,26 @@
 
 .login-btn:hover, .signup-btn:hover {  
   background: linear-gradient(to right, #ff7f0e);
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+[data-hide-edge-password]::-ms-reveal,
+[data-hide-edge-password]::-ms-clear {
+    display: none;
 }
