@@ -37,7 +37,7 @@
   cursor: pointer;
 }
   
-.create, .login, .signin {
+.create, .login, .signin, .logout {
   padding: 8px 16px;
   border-radius: 50px;
 }
@@ -57,7 +57,7 @@
   color: white;
 }
   
-.login, .signin {
+.login, .signin, .logout {
   background-color: black;
   color: white;
 }

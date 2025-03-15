@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Homepage.css";
 import { useNavigate , useLocation } from 'react-router-dom';
 import { CategoriesContext } from "./CategoriesContext";
 import { DataContentContext } from "./DataContentContext";
+import { AuthContext } from "./AuthContext";
 
 const PopupModal = ({ isOpen, onClose, Title }) => {
     const navigate = useNavigate();
@@ -31,27 +32,30 @@ const LoginModal = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState("");
     const [message, setMessages] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!username || !password) return;
-
+        if (!username || !password) return;
+    
         try {
             const response = await fetch("https://legendary-space-guide-566rr5wvx4rh4p4v-3001.app.github.dev/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username: username, password: password }),
+                body: JSON.stringify({ username, password }),
             });
-
+    
             const data = await response.json();
             if (data.access_token) {
-                localStorage.setItem("access_token", data.access_token);
+                // ส่งข้อมูล username ไปกับการล็อกอิน
+                login(data.access_token, { username: username });  // ใช้ username จากฟอร์ม ในบรรทัดที่ 78
                 setMessages("Login successful!");
                 setName("");
                 setPassword("");
                 onClose();
+                window.location.reload();
             } else {
                 setMessages(data.message);
             }
@@ -214,15 +218,12 @@ const HomePage = () => {
     const category = queryParams.get("category");
     const { categories } = useContext(CategoriesContext);
     const { datacontent } = useContext(DataContentContext);
-    const [LogedIn, setLogedIn] = useState(false);
+    const { isLoggedIn, logout, user } = useContext(AuthContext);
 
     const [popup, setPopup] = useState({ type: null, isOpen: false, Title: null });
 
     const openPopup = (type , Title) => setPopup({ type, isOpen: true, Title });
     const closePopup = () => setPopup({ type: null, isOpen: false });
-
-    {/* Check Log in ด้วย Token */}
-    {/* เดียวมาเพิ่ม */}
 
     {/* Content Template */} 
     const Content = ( datacontent ) => (
@@ -249,27 +250,24 @@ const HomePage = () => {
                 <div className="a">
                     <img src="src/img/Logo.png" width="100px" style={{ marginLeft: "200px" }} alt="Logo" />
                 </div>
-                { LogedIn ? 
+                {isLoggedIn ? 
                     <nav className="nav">
                         <span style={{ fontWeight: "bold", textDecoration: "underline"}}>TEMPLATE</span>
                         <button className="create" onClick={() => navigate("/upload")}>CREATE</button>
-                    </nav>
-                    : 
-                    <nav className="nav">
-                        <button className="login" onClick={() => openPopup("Login")}>LOGIN</button>
-                        <button className="signin" onClick={() => openPopup("Signin")}>SIGN UP</button>
-                    </nav>
-                }
-                { LogedIn && 
-                    <nav className="nav">
+                        <button className="logout" onClick={logout}>LOGOUT</button>
                         <button className="profile" onClick={() => navigate("/profile")}>
                             <span className="avatar-circle">
                                 <img src="src/img/Vs.png"  />
                             </span>
                             <span style={{ fontFamily: "Inter, sans-serif" ,fontSize: "14px" ,fontWeight: "bold", marginLeft: "10px", marginRight: "10px" }}>
-                                ikunwe
+                                {user?.username || "Guest"}
                             </span>
                         </button>
+                    </nav>
+                    : 
+                    <nav className="nav">
+                        <button className="login" onClick={() => openPopup("Login")}>LOGIN</button>
+                        <button className="signin" onClick={() => openPopup("Signin")}>SIGN UP</button>
                     </nav>
                 }
             </header>
