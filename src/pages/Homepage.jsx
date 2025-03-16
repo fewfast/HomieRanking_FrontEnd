@@ -39,7 +39,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         if (!username || !password) return;
     
         try {
-            const response = await fetch("https://legendary-space-guide-566rr5wvx4rh4p4v-3001.app.github.dev/login", {
+            const response = await fetch("https://fuzzy-fishstick-7v5xpqjxrj4xcr7j9-3001.app.github.dev/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const SigninModal = ({ isOpen, onClose }) => {
         }
 
         try {
-            const response = await fetch("https://legendary-space-guide-566rr5wvx4rh4p4v-3001.app.github.dev/signup", {
+            const response = await fetch("https://fuzzy-fishstick-7v5xpqjxrj4xcr7j9-3001.app.github.dev/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -238,7 +238,6 @@ const HomePage = () => {
             <a href={`?category=${datacontent.category}`}>[{datacontent.category}]</a> 
         </h4>
         <div>{datacontent.description}</div>
-        {/* Connect with Back_End */} 
         <img src={datacontent.thumbnail} alt={datacontent.Title} className="image" />
         <button className="play" onClick={() => openPopup("Play", datacontent.Title)} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
@@ -257,10 +256,10 @@ const HomePage = () => {
                         <button className="logout" onClick={logout}>LOGOUT</button>
                         <button className="profile" onClick={() => navigate("/profile")}>
                             <span className="avatar-circle">
-                                <img src="src/img/Vs.png"  />
+                                <img src="https://i1.sndcdn.com/avatars-000328000782-3wbizb-t1080x1080.jpg"  />
                             </span>
                             <span style={{ fontFamily: "Inter, sans-serif" ,fontSize: "14px" ,fontWeight: "bold", marginLeft: "10px", marginRight: "10px" }}>
-                                {user?.username || "Guest"}
+                                {user?.username}
                             </span>
                         </button>
                     </nav>
