@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaUpload, FaTimes } from "react-icons/fa";
 import "./Upload.css";
@@ -55,28 +55,44 @@ const Upload = () => {
 
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
-  const [quizcategories, setQuizCategories] = useState("");
   const [quizThumbnail, setQuizThumbnail] = useState(null);
+  const [quizcategories, setQuizCategories] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [namesImage, setNamesImage] = useState([]);
-
+  
   // อัปโหลด Thumbnail
   const handleImageThumbnail = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setQuizThumbnail(URL.createObjectURL(file));
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        setQuizThumbnail(reader.result); // ตั้งค่า Base64 string ให้กับ state
+      };
+  
+      reader.readAsDataURL(file); // อ่านไฟล์เป็น Base64
     }
   };
 
   // อัปโหลดหลายรูป
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
-    const newImages = files.map((file) => ({
-      id: URL.createObjectURL(file), // ใช้ URL ชั่วคราวเพื่อ preview
-      src: URL.createObjectURL(file),
-      caption: "", // เริ่มต้นเป็นข้อความว่าง
-    }));
-    setUploadedImages([...uploadedImages, ...newImages]);
+    const newImages = [];
+  
+    files.forEach(file => {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        newImages.push({
+          id: URL.createObjectURL(file), 
+          src: base64String, // เก็บ Base64 string ของรูปภาพ
+          caption: "", 
+        });
+        setUploadedImages(prevImages => [...prevImages, ...newImages]);
+      };
+  
+      reader.readAsDataURL(file); // อ่านไฟล์เป็น Base64 
+    });
   };
 
   // ลบรูป
@@ -93,36 +109,64 @@ const Upload = () => {
     );
   };
 
+  const resetForm = () => {
+    setQuizTitle("");
+    setQuizDescription("");
+    setQuizCategories("");
+    setQuizThumbnail(null);
+    setUploadedImages([]);
+  };
+
+  // ส่งข้อมูลไป Database
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!quizTitle || !quizDescription || !quizcategories || !quizThumbnail || !uploadedImages.length || !namesImage.length) return;
+  
+    if (!quizTitle || !quizDescription) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if(!quizcategories) {
+      alert("Please select a category.");
+      return;
+    }
+  
+    if (!quizThumbnail) {
+      alert("Please upload a thumbnail.");
+      return;
+    }
+  
+    if (uploadedImages.length === 0) {
+      alert("Please upload at least one image.");
+      return;
+    }
+
+    const imageSources = uploadedImages.map(image => image.src);
+    const imageCaptions = uploadedImages.map(image => image.caption);
   
     try {
-      const response = await fetch("https://fuzzy-fishstick-7v5xpqjxrj4xcr7j9-3001.app.github.dev/upload_quiz", {
+      const response = await fetch("https://upgraded-yodel-wr6wvxv4j5qc9r4-3001.app.github.dev/upload", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ 
-          title: quizTitle, 
-          description: quizDescription, 
-          categories: quizcategories, 
+        body: JSON.stringify({
+          title: quizTitle,
+          description: quizDescription,
+          categories: quizcategories,
           thumbnail: quizThumbnail,
-          images: uploadedImages,
-          image_names: namesImage
+          images: imageSources,
+          image_names: imageCaptions,
         }),
       });
   
-      const data = await response.json();
-      setMessages(data.message);
       setQuizTitle("");
       setQuizDescription("");
-      setQuizCategories("");
       setQuizThumbnail("");
+      setQuizCategories("");
       setUploadedImages([]);
-      setNamesImage([]);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error:", error);
       setMessages("Error: Please try again later.");
     }
@@ -167,7 +211,10 @@ const Upload = () => {
       {popup.type === "Signin" && <SigninModal isOpen={popup.isOpen} onClose={closePopup} />}
 
     {/* Input ข้อมูลส่งไป Database Mongo */}
-      <form className="upload-box" onSubmit={handleSubmit}>
+      <div className="upload-box">
+        {/* ส่วนกรอกข้อมูล */}
+      <form onSubmit={handleSubmit}>
+        
         {/* Quiz Title */}
         <div className="input-container">
           <label>Quiz Title</label>
@@ -200,7 +247,12 @@ const Upload = () => {
                 <span>
                   {cat.icon} {cat.name}
                 </span>
-                <input type="radio" name="option" value={cat.name}/>
+                <input 
+                  type="radio" 
+                  name="option" 
+                  value={cat.name}
+                  onChange={(e) => setQuizCategories(e.target.value)}
+                />
               </div>
               ]
             ))}
@@ -271,10 +323,11 @@ const Upload = () => {
 
         {/* Buttons */}
         <div className="button-container">
-          <button type="reset" className="cancel-btn">Cancel</button>
+          <button type="button" className="cancel-btn" onClick={() => resetForm()}>Cancel</button>
           <button type="submit" className="confirm-btn">Confirm</button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

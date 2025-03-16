@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./Homepage.css";
 import { useNavigate , useLocation } from 'react-router-dom';
 import { CategoriesContext } from "./CategoriesContext";
@@ -39,7 +39,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         if (!username || !password) return;
     
         try {
-            const response = await fetch("https://fuzzy-fishstick-7v5xpqjxrj4xcr7j9-3001.app.github.dev/login", {
+            const response = await fetch("https://upgraded-yodel-wr6wvxv4j5qc9r4-3001.app.github.dev/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const SigninModal = ({ isOpen, onClose }) => {
         }
 
         try {
-            const response = await fetch("https://fuzzy-fishstick-7v5xpqjxrj4xcr7j9-3001.app.github.dev/signup", {
+            const response = await fetch("https://upgraded-yodel-wr6wvxv4j5qc9r4-3001.app.github.dev/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -227,19 +227,19 @@ const HomePage = () => {
 
     {/* Content Template */} 
     const Content = ( datacontent ) => (
-        <div>
+        <div style={{ fontFamily: "Jost" }}>
             <div className="user-info">
                 <div className="avatar"></div>
-                <span style={{ fontWeight: "bold" }}>Name #5555</span>
+                <span style={{ fontFamily: "Jost", fontWeight: "bold" }}>{datacontent.uploaded_by}</span>
                 <FollowButton />
             </div>
-        <h4 style={{ fontSize: "1.2rem" }}>
-            <span>{datacontent.Title} </span>
-            <a href={`?category=${datacontent.category}`}>[{datacontent.category}]</a> 
+        <h4 style={{ fontSize: "20px" }}>
+            <span>{datacontent.title} </span>
+            <a href={`?category=${datacontent.categories}`} style={{ fontFamily: "Jost", fontSize:"16px" }}>[{datacontent.categories}]</a> 
         </h4>
         <div>{datacontent.description}</div>
-        <img src={datacontent.thumbnail} alt={datacontent.Title} className="image" />
-        <button className="play" onClick={() => openPopup("Play", datacontent.Title)} style={{ cursor: "pointer" }}>PLAY</button>
+        <img src={datacontent.thumbnail} alt={datacontent.title} className="image" />
+        <button className="play" onClick={() => openPopup("Play", datacontent.title)} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
        
@@ -247,7 +247,12 @@ const HomePage = () => {
         <div className="container">
             <header className="header">
                 <div className="a">
-                    <img src="src/img/Logo.png" width="100px" style={{ marginLeft: "200px" }} alt="Logo" />
+                    <img src="src/img/Logo.png" 
+                        width="100px" 
+                        onClick={() => navigate("/")}
+                        style={{ marginLeft: "200px", cursor: "pointer" }} 
+                        alt="Logo"
+                    />
                 </div>
                 {isLoggedIn ? 
                     <nav className="nav">
@@ -290,7 +295,7 @@ const HomePage = () => {
 
                 <section className="content">
                     {datacontent
-                        .filter(item => !category || item.category.toUpperCase() === category.toUpperCase())
+                        .filter(item => !category || item.categories.toUpperCase() === category.toUpperCase())
                         .map((item, index) => (
                             <div className="card" key={index}>
                                 <Content {...item} />
