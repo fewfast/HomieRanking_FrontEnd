@@ -5,7 +5,7 @@ import { CategoriesContext } from "./CategoriesContext";
 import { DataContentContext } from "./DataContentContext";
 import { AuthContext } from "./AuthContext";
 
-const PopupModal = ({ isOpen, onClose, Title }) => {
+const PopupModal = ({ isOpen, onClose, id }) => {
     const navigate = useNavigate();
     if (!isOpen) return null;
     return (
@@ -19,9 +19,9 @@ const PopupModal = ({ isOpen, onClose, Title }) => {
                 </div>
                 <h2 className="titan-text" style={{ fontSize: "3rem" }}>Choose</h2>
                 <h2 className="titan-text" style={{ fontSize: "1.5rem" }}>Picture</h2>
-                <button className="option-btn" onClick={() => navigate(`/gamepage?round=32&Title=${Title}`)}>32 pic.</button>
-                <button className="option-btn" onClick={() => navigate(`/gamepage?round=64&Title=${Title}`)}>64 pic.</button>
-                <button className="option-btn" onClick={() => navigate(`/gamepage?round=128&Title=${Title}`)}>128 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=10&id=${id}`)}>10 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=15&id=${id}`)}>15 pic.</button>
+                <button className="option-btn" onClick={() => navigate(`/gamepage?round=20&id=${id}`)}>20 pic.</button>
             </div>
         </div>
     );
@@ -220,9 +220,9 @@ const HomePage = () => {
     const { datacontent } = useContext(DataContentContext);
     const { isLoggedIn, logout, user } = useContext(AuthContext);
 
-    const [popup, setPopup] = useState({ type: null, isOpen: false, Title: null });
+    const [popup, setPopup] = useState({ type: null, isOpen: false, id: null });
 
-    const openPopup = (type , Title) => setPopup({ type, isOpen: true, Title });
+    const openPopup = (type , id) => setPopup({ type, isOpen: true, id });
     const closePopup = () => setPopup({ type: null, isOpen: false });
 
     {/* Content Template */} 
@@ -239,7 +239,7 @@ const HomePage = () => {
         </h4>
         <div>{datacontent.description}</div>
         <img src={datacontent.thumbnail} alt={datacontent.title} className="image" />
-        <button className="play" onClick={() => openPopup("Play", datacontent.title)} style={{ cursor: "pointer" }}>PLAY</button>
+        <button className="play" onClick={() => openPopup("Play", datacontent._id)} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
        
@@ -304,7 +304,7 @@ const HomePage = () => {
                     )}
                 </section>
             </main>
-            {popup.type === "Play" && <PopupModal isOpen={popup.isOpen} onClose={closePopup} Title={popup.Title} />}
+            {popup.type === "Play" && <PopupModal isOpen={popup.isOpen} onClose={closePopup} id={popup.id} />}
             {popup.type === "Login" && <LoginModal isOpen={popup.isOpen} onClose={closePopup} />}
             {popup.type === "Signin" && <SigninModal isOpen={popup.isOpen} onClose={closePopup} />}
         </div>

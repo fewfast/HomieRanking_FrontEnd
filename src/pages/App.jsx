@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './Homepage';
 import Upload from './Upload';
 import Gamepage from './Gamepage';
+import ProfilePage from './ProfilePage';
 import { CategoriesProvider } from "./CategoriesContext";
 import { DataProvider } from "./DataContentContext";
 import { AuthProvider } from "./AuthContext";
@@ -17,6 +18,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/upload" element={<Upload />} />
               <Route path="/gamepage" element={<Gamepage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Router>
         </DataProvider>

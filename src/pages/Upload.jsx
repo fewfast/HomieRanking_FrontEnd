@@ -1,57 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaUpload, FaTimes } from "react-icons/fa";
 import "./Upload.css";
 import { CategoriesContext } from "./CategoriesContext";
 import { AuthContext } from "./AuthContext";
 
-const LoginModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-      <div className="popup-overlay">
-          <div className="popupLogin">
-              <button className="close-btn" onClick={onClose}>
-                  <img src="src/img/Return.png" width="30" alt="Close" />
-              </button>
-              <img src="src/img/Logo.png" width="200" alt="Logo" />
-              <h2 className="inter-text">Log in</h2>
-              <h3 className="inter-small-text">Homie ranking</h3>
-              <input type="text" placeholder="Username" className="input-box" />
-              <input type="password" placeholder="Password" className="input-box" />
-              <button className="login-btn">Login</button>
-          </div>
-      </div>
-  );
-};
-
-const SigninModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-      <div className="popup-overlay">
-          <div className="popupSignin">
-              <button className="close-btn" onClick={onClose}>
-                  <img src="src/img/Return.png" width="30" alt="Close" />
-              </button>
-              <img src="src/img/Logo.png" width="200" alt="Logo" />
-              <h2 className="inter-text">Create Your Account</h2>
-              <h3 className="inter-small-text">Set your password for Homie ranking</h3>
-              <input type="text" placeholder="Username" className="input-box" />
-              <input type="password" placeholder="Password" className="input-box" />
-              <input type="password" placeholder="Confirm Password" className="input-box" />
-              <button className="signup-btn">Sign Up</button>
-          </div>
-      </div>
-  );
-};
-
 const Upload = () => {
   const navigate = useNavigate();
   const { categories } = useContext(CategoriesContext);
   const { isLoggedIn, logout, user, token } = useContext(AuthContext);
-  const [popup, setPopup] = useState({ type: null, isOpen: false });
-
-  const openPopup = (type) => setPopup({ type, isOpen: true });
-  const closePopup = () => setPopup({ type: null, isOpen: false });
 
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
@@ -74,25 +31,32 @@ const Upload = () => {
   };
 
   // อัปโหลดหลายรูป
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
     const newImages = [];
   
-    files.forEach(file => {
-      const reader = new FileReader();
+    const readFileAsBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result); // ส่งกลับผลลัพธ์เป็น base64
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+      });
+    };
   
-      reader.onloadend = () => {
-        const base64String = reader.result;
+    for (const file of files) {
+      try {
+        const base64 = await readFileAsBase64(file);
         newImages.push({
-          id: URL.createObjectURL(file), 
-          src: base64String, // เก็บ Base64 string ของรูปภาพ
-          caption: "", 
+          id: file.name, // ใช้ชื่อไฟล์เป็น 
+          src: base64, // ใช้ base64 ที่ได้
+          caption: "", // เริ่มต้นเป็นข้อความว่าง
         });
-        setUploadedImages(prevImages => [...prevImages, ...newImages]);
-      };
-  
-      reader.readAsDataURL(file); // อ่านไฟล์เป็น Base64 
-    });
+      } catch (error) {
+        console.error("Error reading file:", error);
+      }
+    }
+    setUploadedImages((prevImages) => [...prevImages, ...newImages]);
   };
 
   // ลบรูป
@@ -201,14 +165,10 @@ const Upload = () => {
         </div>
         :
         <div className="nav">
-          <button className="login" onClick={() => openPopup("Login")}>LOGIN</button>
-          <button className="signin" onClick={() => openPopup("Signin")}>SIGN UP</button>
+          <button className="back" onClick={() => navigate("/")}>BACK</button>
         </div>
         } 
       </header>
-
-      {popup.type === "Login" && <LoginModal isOpen={popup.isOpen} onClose={closePopup} />}
-      {popup.type === "Signin" && <SigninModal isOpen={popup.isOpen} onClose={closePopup} />}
 
     {/* Input ข้อมูลส่งไป Database Mongo */}
       <div className="upload-box">
