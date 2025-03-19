@@ -1,6 +1,6 @@
 
 .profile-container {
-    background-color: white; 
+    background-color: #f3f4f6; 
     min-height: 150vh;
     display: flex; 
 }
@@ -28,3 +28,71 @@
     background-color: black;
     color: white;
 }
+
+.profile-box {
+    width: 1200px;
+    background: white;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 76px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.profile-banner {
+    width: 100%;
+    height: 250px;
+    background: url('https://www.skyweaver.net/images/media/wallpapers/wallpaper1.jpg') center/cover no-repeat;
+    background-color: #ccc;
+    position: relative;
+}
+
+.profile-picture {
+    position: absolute;
+    bottom: -70px; 
+    left: 10%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    border: 4px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-content {
+    padding: 20px 70px 20px; /* เพิ่ม padding-top เผื่อ space ให้วงกลมที่ซ้อน banner */
+}
+
+.contents-container {
+    padding: 5px 70px 70px;
+}
+
+.image-content {
+    max-height: 500px;
+    width: 100%;
+    margin-top: -15px;
+    border-radius: 20px;
+    background-color: lightgray;
+}
+
+.update, .delete, .edit {
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    font-family: Jost;
+    font-size: 15px;
+  }
+

@@ -233,13 +233,13 @@ const HomePage = () => {
                 <span style={{ fontFamily: "Jost", fontWeight: "bold" }}>{datacontent.uploaded_by}</span>
                 <FollowButton />
             </div>
-        <h4 style={{ fontSize: "20px" }}>
-            <span>{datacontent.title} </span>
-            <a href={`?category=${datacontent.categories}`} style={{ fontFamily: "Jost", fontSize:"16px" }}>[{datacontent.categories}]</a> 
-        </h4>
-        <div>{datacontent.description}</div>
-        <img src={datacontent.thumbnail} alt={datacontent.title} className="image" />
-        <button className="play" onClick={() => openPopup("Play", datacontent._id)} style={{ cursor: "pointer" }}>PLAY</button>
+            <h4 style={{ fontSize: "20px" }}>
+                <span>{datacontent.title} </span>
+                <a href={`?category=${datacontent.categories}`} style={{ fontFamily: "Jost", fontSize:"16px" }}>[{datacontent.categories}]</a> 
+            </h4>
+            <div>{datacontent.description}</div>
+            <img src={datacontent.thumbnail} alt={datacontent.title} className="image" />
+            <button className="play" onClick={() => openPopup("Play", datacontent._id)} style={{ cursor: "pointer" }}>PLAY</button>
         </div>
     );
        
