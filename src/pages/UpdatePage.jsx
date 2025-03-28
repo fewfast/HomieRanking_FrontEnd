@@ -1,58 +1,62 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, data } from 'react-router-dom';
 import { FaUpload, FaTimes } from "react-icons/fa";
-import "./Upload.css";
 import { CategoriesContext } from "./CategoriesContext";
 import { AuthContext } from "./AuthContext";
 import { APIContext } from "./APIContext";
+//Css ใช้ตัวเดียวกับ Upload เพราะ รูปแบบคล้ายๆกัน
 
-const Upload = () => {
+const UpdatePage = () => {
   const navigate = useNavigate();
   const { categories } = useContext(CategoriesContext);
   const { isLoggedIn, logout, user, token } = useContext(AuthContext);
   const { apiUrl } = useContext(APIContext);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const content = queryParams.get("content");
+  const id = queryParams.get("id");
 
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
   const [quizThumbnail, setQuizThumbnail] = useState(null);
   const [quizcategories, setQuizCategories] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
-
-// เป็นฟังชันที่เอาไว้ลดขนาดไฟล์ ของ Base64 
-const compressImage = (file, maxSize = null, quality = 0.8) => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      const img = new Image();
-      img.src = event.target.result;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let width = img.width;
-        let height = img.height;
-
-        // สำหรับ Thumbnail ถ้า maxSize === null จะไม่ลดขนาด resolution
-        if (maxSize && (width > maxSize || height > maxSize)) {
-          if (width > height) {
-            height *= maxSize / width;
-            width = maxSize;
-          } else {
-            width *= maxSize / height;
-            height = maxSize;
+  
+  // อัปโหลด Thumbnail
+  const compressImage = (file, maxSize = null, quality = 0.8) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+  
+          // สำหรับ Thumbnail ถ้า maxSize === null จะไม่ลดขนาด resolution
+          if (maxSize && (width > maxSize || height > maxSize)) {
+            if (width > height) {
+              height *= maxSize / width;
+              width = maxSize;
+            } else {
+              width *= maxSize / height;
+              height = maxSize;
+            }
           }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-
-        const newBase64 = canvas.toDataURL('image/jpeg', quality);
-        resolve(newBase64);
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+  
+          const newBase64 = canvas.toDataURL('image/jpeg', quality);
+          resolve(newBase64);
+        };
       };
-    };
-  });
-};
+    });
+  };
   
   // อัปโหลด Thumbnail
   const handleImageThumbnail = async (event) => {
@@ -120,8 +124,8 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
       return;
     }
   
-    if (uploadedImages.length === 0) {
-      alert("Please upload 20 image.");
+    if (uploadedImages.length !== 20) {
+      alert("Please upload at least one image.");
       return;
     }
 
@@ -129,8 +133,8 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
     const imageCaptions = uploadedImages.map(image => image.caption);
   
     try {
-      const response = await fetch(`${apiUrl}/upload`, {
-        method: "POST",
+      const response = await fetch(`${apiUrl}/update_quiz/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -144,8 +148,9 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
           image_names: imageCaptions,
         }),
       });
-      alert("Upload successful!");
+      alert("Update successful!");
       resetForm();
+      navigate(`/profile?id=${user?._id}&username=${user?.username}`);
     } catch (error) {
       console.error("Error:", error);
       setMessages("Error: Please try again later.");
@@ -154,7 +159,7 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
 
   return (
 
-    <div className="containerUpload">
+    <div className="containerUpload" style={{ fontFamily: "Jost, sans-serif" }}>
       {/* Header */}
       <header className="upload-header">
         <div className="a">
@@ -188,15 +193,23 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
 
     {/* Input ข้อมูลส่งไป Database Mongo */}
       <div className="upload-box">
+        <div style={{ fontFamily: "Titan One, sans-serif", textAlign: "center" }}>
+            <div style={{ fontSize: "65px" }}>Update</div>
+            <div style={{ fontSize: "25px" }}>your "{content}"</div>
+        </div>
+        <hr 
+            style={{ marginTop: "20px" }}
+        />
+
         {/* ส่วนกรอกข้อมูล */}
       <form onSubmit={handleSubmit}>
         
         {/* Quiz Title */}
-        <div className="input-container">
+        <div className="input-container" style={{ marginTop: "20px" }}>
           <label>Quiz Title</label>
           <input
             type="text"
-            placeholder="Enter quiz title"
+            placeholder="Enter new title"
             value={quizTitle}
             onChange={(e) => setQuizTitle(e.target.value)}
           />
@@ -207,7 +220,7 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
           <label>Quiz Description</label>
           <input
             type="text"
-            placeholder="Enter quiz description"
+            placeholder="Enter new description"
             value={quizDescription}
             onChange={(e) => setQuizDescription(e.target.value)}
           />
@@ -286,7 +299,7 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
             <input
               type="text"
               className="image-caption"
-              placeholder="Enter Name"
+              placeholder="Enter new Name"
               value={image.caption}
               onChange={(e) => handleCaptionChange(image.id, e.target.value)}
             />
@@ -308,4 +321,4 @@ const compressImage = (file, maxSize = null, quality = 0.8) => {
   );
 };
 
-export default Upload;
+export default UpdatePage;

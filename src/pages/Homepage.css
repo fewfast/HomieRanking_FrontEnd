@@ -37,9 +37,19 @@
   cursor: pointer;
 }
   
-.create, .login, .signin {
+.create, .login, .signin, .logout {
   padding: 8px 16px;
   border-radius: 50px;
+}
+
+.profile {
+  padding: 5px 5px;
+  border-radius: 50px;
+}
+
+.profile {
+  background-color: black;
+  color: white;
 }
   
 .create {
@@ -47,7 +57,7 @@
   color: white;
 }
   
-.login, .signin {
+.login, .signin, .logout {
   background-color: black;
   color: white;
 }
@@ -125,16 +135,45 @@
 .avatar {
   width: 40px;
   height: 40px;
-  background: gray;
+  background: lightgray;
   border-radius: 50%;
   margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+.avatar img {
+  width: 100%;  
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.avatar-circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: lightgray;
+  text-align: center;
+  vertical-align: middle;
+  border: #ffffff 1px solid;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
 }
   
 .follow, .followed {
   margin-left: auto;
-  padding: 4px 8px;
-  border-radius: 5px;
+  padding: 8px 10px;
+  border-radius: 15px;
   font-weight: bold;
+  font-family: "Inter", sans-serif;
 }
   
 .follow {
@@ -256,7 +295,7 @@
 
 /* ADDED: Input Fields */
 .input-box {  
-  width: 90%;
+  width: 93%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 20px;
@@ -276,4 +315,26 @@
 
 .login-btn:hover, .signup-btn:hover {  
   background: linear-gradient(to right, #ff7f0e);
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+[data-hide-edge-password]::-ms-reveal,
+[data-hide-edge-password]::-ms-clear {
+    display: none;
 }

@@ -12,6 +12,7 @@ export const CategoriesProvider = ({ children }) => {
         { icon: "⚽", name: "SPORTS" },
         { icon: "🎬", name: "MOVIES" },
         { icon: "🎨", name: "ARTS" }, 
+        { icon: "🗃️", name: "OTHERS" }, 
     ]);
 
   return (
